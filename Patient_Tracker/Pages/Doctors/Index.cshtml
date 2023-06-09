@@ -1,0 +1,54 @@
+﻿@page
+@model Patient_Tracker.Pages.Doctors.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Doctor[0].DFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doctor[0].DLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doctor[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doctor[0].Address)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Doctor) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
