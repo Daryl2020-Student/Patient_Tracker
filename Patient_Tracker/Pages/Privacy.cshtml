@@ -3,6 +3,71 @@
 @{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+        <p class="lead">Effective Date: [Insert Effective Date]</p>
+
+        <h2>1. Introduction</h2>
+        <p>This privacy policy ("Policy") outlines how we collect, use, disclose, and protect the personal information of our users in accordance with the General Data Protection Regulation (GDPR) and other applicable data protection laws.</p>
+
+        <h2>2. Information We Collect</h2>
+        <p>We may collect and process the following types of personal information:</p>
+        <ul>
+            <li>Personal identification information (e.g., name, date of birth, contact details)</li>
+            <li>Medical information (e.g., medical history, diagnosis, treatment information)</li>
+            <li>Demographic information (e.g., gender, ethnicity)</li>
+            <li>Any other information you provide to us voluntarily</li>
+        </ul>
+
+        <h2>3. How We Use Your Information</h2>
+        <p>We may use your personal information for the following purposes:</p>
+        <ul>
+            <li>Providing healthcare services and treatment</li>
+            <li>Managing appointments and scheduling</li>
+            <li>Maintaining medical records and histories</li>
+            <li>Communicating with you regarding your healthcare</li>
+            <li>Conducting research and analysis for improvement of our services</li>
+        </ul>
+
+        <h2>4. How We Share Your Information</h2>
+        <p>We may share your personal information with the following parties:</p>
+        <ul>
+            <li>Healthcare professionals involved in your care</li>
+            <li>Third-party service providers assisting in the delivery of our services</li>
+            <li>Legal or regulatory authorities when required by law</li>
+        </ul>
+
+        <h2>5. Security Measures</h2>
+        <p>We implement appropriate technical and organizational measures to protect your personal information from unauthorized access, disclosure, alteration, or destruction.</p>
+
+        <h2>6. Your Rights</h2>
+        <p>You have the following rights regarding your personal information:</p>
+        <ul>
+            <li>The right to access and receive a copy of your personal information</li>
+            <li>The right to rectify any inaccurate or incomplete personal information</li>
+            <li>The right to request the erasure of your personal information</li>
+            <li>The right to restrict the processing of your personal information</li>
+            <li>The right to object to the processing of your personal information</li>
+            <li>The right to data portability</li>
+        </ul>
+
+        <h2>7. Contact Us</h2>
+        <p>If you have any questions or concerns about our privacy practices or your personal information, please contact us using the information provided below:</p>
+        <p>[Insert Contact Information]</p>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -13,12 +13,24 @@
         public string LastName { get; set; }
 
         // Date of birth of the patient.
-        public DateOnly DOB { get; set; }
+        public string DOB { get; set; }
 
         // Address of the patient.
         public string Address { get; set; }
 
         // Next of kin of the patient.
         public string NextOfKin { get; set; }
+
+        // Blood type of the patient.
+        public string BloodType { get; set; }
+
+        // Gender of the patient.
+        public string Gender { get; set; }
+
+        //Medical history of the patient.
+        public string MedicalHistory { get; set; }
+
+        // Phone number of the patient.
+        public int PhoneNumber { get; set; }
     }
 }

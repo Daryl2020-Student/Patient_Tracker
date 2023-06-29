@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Patient_Tracker.Data;
-using Patient_Tracker.Model;
-
-namespace Patient_Tracker.Pages.Doctors
+﻿namespace Patient_Tracker.Pages.Doctors
 {
     public class EditModel : PageModel
     {
@@ -23,55 +12,57 @@ namespace Patient_Tracker.Pages.Doctors
         [BindProperty]
         public Doctor Doctor { get; set; } = default!;
 
+        // GET handler for the edit page
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null || _context.Doctors == null)
             {
-                return NotFound();
+                return NotFound(); // If the id or context is null, return a not found page
             }
 
-            var doctor =  await _context.Doctors.FirstOrDefaultAsync(m => m.Id == id);
+            var doctor = await _context.Doctors.FirstOrDefaultAsync(m => m.Id == id);
             if (doctor == null)
             {
-                return NotFound();
+                return NotFound(); // If the doctor is not found, return a not found page
             }
-            Doctor = doctor;
+            Doctor = doctor; // Set the Doctor property to the found doctor
             return Page();
         }
 
+        // POST handler for the edit page
         // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                return Page(); // If the model state is not valid, return the page with validation errors
             }
 
-            _context.Attach(Doctor).State = EntityState.Modified;
+            _context.Attach(Doctor).State = EntityState.Modified; // Attach the modified Doctor entity to the context
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(); // Save the changes to the database
             }
             catch (DbUpdateConcurrencyException)
             {
                 if (!DoctorExists(Doctor.Id))
                 {
-                    return NotFound();
+                    return NotFound(); // If the doctor does not exist, return a not found page
                 }
                 else
                 {
-                    throw;
+                    throw; // Throw an exception for other concurrency-related errors
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Index"); // Redirect to the index page after successful update
         }
 
+        // Check if a doctor with the given ID exists in the database
         private bool DoctorExists(int id)
         {
-          return (_context.Doctors?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Doctors?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

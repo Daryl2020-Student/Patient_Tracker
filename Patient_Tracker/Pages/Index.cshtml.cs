@@ -1,20 +1,55 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
-namespace Patient_Tracker.Pages
+﻿namespace Patient_Tracker.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly Patient_Tracker_Context _context;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        [BindProperty]
+        public Doctor Doctor { get; set; } = default!;
+
+        public IndexModel(Patient_Tracker_Context context)
         {
-            _logger = logger;
+            _context = context;
         }
 
-        public void OnGet()
-        {
+        public bool ShowNavbar { get; set; }
 
+        public IActionResult OnGet()
+        {
+            ShowNavbar = false;
+
+            return Page();
+        }
+
+        public IActionResult OnPost()
+        {
+            if (Doctor.Email == string.Empty || Doctor.Password == string.Empty )
+            {
+                return Page();
+            }
+
+            // Find the doctor with the given email
+            var doctor = _context.Doctors.FirstOrDefault(d => d.Email == Doctor.Email);
+
+            if (Doctor.Email != Doctor.Email)
+            {
+                // Doctor not found
+                ModelState.AddModelError(string.Empty, "Invalid email or password.");
+                return Page();
+            }
+
+            if (doctor.Password != Doctor.Password)
+            {
+                // Invalid password
+                ModelState.AddModelError(string.Empty, "Invalid email or password.");
+                return Page();
+            }
+
+            // Successful login
+            ShowNavbar = true; // Show the navbar
+
+            // Redirect to another page
+            return RedirectToPage("/Patients/Index");
         }
     }
 }

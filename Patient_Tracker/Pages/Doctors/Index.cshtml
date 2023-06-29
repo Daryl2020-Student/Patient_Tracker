@@ -1,54 +1,38 @@
 ﻿@page
 @model Patient_Tracker.Pages.Doctors.IndexModel
 
-@{
-    ViewData["Title"] = "Index";
-}
+<div class="container">
+    <h1 class="mt-4">Doctors</h1>
 
-<h1>Index</h1>
+    <p>
+        <a asp-page="Create" class="btn btn-primary">Create New</a>
+    </p>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Doctor[0].DFirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Doctor[0].DLastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Doctor[0].Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Doctor[0].Address)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Doctor) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DFirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DLastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Doctors)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.DFirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DLastName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                        <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-secondary">Details</a>
+                        <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

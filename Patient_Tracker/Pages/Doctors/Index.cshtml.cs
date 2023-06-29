@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Patient_Tracker.Data;
-using Patient_Tracker.Model;
-
-namespace Patient_Tracker.Pages.Doctors
+﻿namespace Patient_Tracker.Pages.Doctors
 {
     public class IndexModel : PageModel
     {
@@ -19,13 +9,14 @@ namespace Patient_Tracker.Pages.Doctors
             _context = context;
         }
 
-        public IList<Doctor> Doctor { get;set; } = default!;
+        public IList<Doctor> Doctors { get; set; } = default!;
 
+        // GET handler for the index page
         public async Task OnGetAsync()
         {
             if (_context.Doctors != null)
             {
-                Doctor = await _context.Doctors.ToListAsync();
+                Doctors = await _context.Doctors.ToListAsync(); // Retrieve the list of doctors from the context and assign it to the Doctor property
             }
         }
     }

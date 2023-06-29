@@ -1,10 +1,30 @@
 ﻿@page
-@model IndexModel
+@model Patient_Tracker.Pages.IndexModel
+
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@if (!Model.ShowNavbar) {
+    <style>
+        .navbar {
+            display: none;
+        }
+    </style>
+}
+
+<h1>Welcome to the Patient Tracker Application</h1>
+
+<p>Please enter your email and password to log in:</p>
+
+<form method="post">
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input asp-for="Doctor.Email" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="Password">Password</label>
+        <input asp-for="Doctor.Password" class="form-control" type="password" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Log In</button>
+</form>

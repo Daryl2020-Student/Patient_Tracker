@@ -1,4 +1,4 @@
-﻿namespace Patient_Tracker.Pages.Doctors
+﻿namespace Patient_Tracker.Pages.Patients
 {
     public class CreateModel : PageModel
     {
@@ -15,24 +15,16 @@
         }
 
         [BindProperty]
-        public Doctor Doctor { get; set; } = new Doctor();
-
+        public Patient Patient { get; set; } = new Patient();
+        
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+          if (!ModelState.IsValid || _context.Patients == null || Patient == null)
             {
                 return Page();
             }
 
-            // Check if a doctor with the same email already exists
-            bool doctorExists = await _context.Doctors.AnyAsync(d => d.Email == Doctor.Email);
-            if (doctorExists)
-            {
-                ModelState.AddModelError("Doctor.Email", "A doctor with the same email already exists.");
-                return Page();
-            }
-
-            _context.Doctors.Add(Doctor);
+            _context.Patients.Add(Patient);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Patient_Tracker.Data;
-using Patient_Tracker.Model;
-
-namespace Patient_Tracker.Pages.Doctors
+﻿namespace Patient_Tracker.Pages.Doctors
 {
     public class DetailsModel : PageModel
     {
@@ -19,24 +9,26 @@ namespace Patient_Tracker.Pages.Doctors
             _context = context;
         }
 
-      public Doctor Doctor { get; set; } = default!; 
+        public Doctor Doctor { get; set; } = default!;
 
+        // GET handler for the details page
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Doctors == null)
+            if (id == null)
             {
-                return NotFound();
+                return NotFound(); // If the id is null, return a not found page
             }
 
             var doctor = await _context.Doctors.FirstOrDefaultAsync(m => m.Id == id);
             if (doctor == null)
             {
-                return NotFound();
+                return NotFound(); // If the doctor is not found, return a not found page
             }
-            else 
+            else
             {
-                Doctor = doctor;
+                Doctor = doctor; // Set the Doctor property to the found doctor
             }
+
             return Page();
         }
     }

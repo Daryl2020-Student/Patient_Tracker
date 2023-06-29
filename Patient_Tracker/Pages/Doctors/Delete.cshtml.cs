@@ -1,63 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Patient_Tracker.Data;
-using Patient_Tracker.Model;
-
-namespace Patient_Tracker.Pages.Doctors
+﻿namespace Patient_Tracker.Pages.Doctors
 {
     public class DeleteModel : PageModel
     {
-        private readonly Patient_Tracker.Data.Patient_Tracker_Context _context;
+        private readonly Patient_Tracker_Context _context;
 
-        public DeleteModel(Patient_Tracker.Data.Patient_Tracker_Context context)
+        public DeleteModel(Patient_Tracker_Context context)
         {
             _context = context;
         }
 
         [BindProperty]
-      public Doctor Doctor { get; set; } = default!;
+        public Doctor Doctor { get; set; } = default!;
 
+        // GET handler for the delete confirmation page
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null || _context.Doctors == null)
             {
-                return NotFound();
+                return NotFound(); // If the id or context is null, return a not found page
             }
 
             var doctor = await _context.Doctors.FirstOrDefaultAsync(m => m.Id == id);
 
             if (doctor == null)
             {
-                return NotFound();
+                return NotFound(); // If the doctor is not found, return a not found page
             }
-            else 
+            else
             {
-                Doctor = doctor;
+                Doctor = doctor; // Set the Doctor property to the found doctor
             }
+
             return Page();
         }
 
+        // POST handler for the delete confirmation form
         public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null || _context.Doctors == null)
             {
-                return NotFound();
+                return NotFound(); // If the id or context is null, return a not found page
             }
+
             var doctor = await _context.Doctors.FindAsync(id);
 
             if (doctor != null)
             {
-                Doctor = doctor;
-                _context.Doctors.Remove(Doctor);
-                await _context.SaveChangesAsync();
+                Doctor = doctor; // Set the Doctor property to the found doctor
+                _context.Doctors.Remove(Doctor); // Remove the doctor from the context
+                await _context.SaveChangesAsync(); // Save changes to the database
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Index"); // Redirect to the index page after successful deletion
         }
     }
 }

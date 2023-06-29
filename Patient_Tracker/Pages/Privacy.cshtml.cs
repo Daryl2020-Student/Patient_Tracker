@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
-namespace Patient_Tracker.Pages
+﻿namespace Patient_Tracker.Pages
 {
     public class PrivacyModel : PageModel
     {
@@ -14,6 +11,9 @@ namespace Patient_Tracker.Pages
 
         public void OnGet()
         {
+            // This method is executed when the HTTP GET request is made to the Privacy page.
+            // Here, you can perform any necessary actions or retrieve data before rendering the page.
+            // In this case, the method is empty as no specific actions are required for the Privacy page.
         }
     }
 }

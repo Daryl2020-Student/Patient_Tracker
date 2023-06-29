@@ -19,9 +19,10 @@ namespace Patient_Tracker.Pages
             _logger = logger;
         }
 
+        // GET handler for the error page
         public void OnGet()
         {
-            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier; // Retrieve the current request ID or generate a new one if it's not available
         }
     }
 }
