@@ -21,8 +21,21 @@ namespace Patient_Tracker.Pages.Patients
 
         public IList<Patient> Patient { get;set; } = default!;
 
+        [BindProperty(SupportsGet = true)]
+        public string? SearchString { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string? PPSNum { get; set; }
+
         public async Task OnGetAsync()
         {
+            var patients = from p in _context.Patients
+                           select p;
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                patients = patients.Where(s => s.PPSNo.Contains(SearchString));
+            }
+
             if (_context.Patients != null)
             {
                 Patient = await _context.Patients.ToListAsync();

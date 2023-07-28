@@ -32,5 +32,11 @@
 
         // Phone number of the patient.
         public int PhoneNumber { get; set; }
+
+        //PPS number of the patient.
+        public string PPSNo { get; set; }
+
+        //Doctor assigned of the patient.
+        public string DoctorNum { get; set; }
     }
 }
