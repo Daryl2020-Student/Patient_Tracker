@@ -1,4 +1,6 @@
-﻿namespace Patient_Tracker.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Patient_Tracker.Model
 {
     // Patient class represents a patient entity.
     public class Patient
@@ -13,6 +15,7 @@
         public string LastName { get; set; }
 
         // Date of birth of the patient.
+        [DataType(DataType.Date)]
         public string DOB { get; set; }
 
         // Address of the patient.
@@ -22,6 +25,9 @@
         public string NextOfKin { get; set; }
 
         // Blood type of the patient.
+        [RegularExpression(@"^(A|B|AB|O)[+-]$")]
+        [StringLength(4)]
+        [Required]
         public string BloodType { get; set; }
 
         // Gender of the patient.
