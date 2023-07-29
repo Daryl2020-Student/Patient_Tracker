@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Patient_Tracker.Data;
-using Patient_Tracker.Model;
-
-namespace Patient_Tracker.Pages.Patients
+﻿namespace Patient_Tracker.Pages.Patients
 {
     public class EditModel : PageModel
     {
@@ -30,7 +19,7 @@ namespace Patient_Tracker.Pages.Patients
                 return NotFound();
             }
 
-            var patient =  await _context.Patients.FirstOrDefaultAsync(m => m.Id == id);
+            var patient = await _context.Patients.FirstOrDefaultAsync(p => p.Id == id);
             if (patient == null)
             {
                 return NotFound();
@@ -69,7 +58,7 @@ namespace Patient_Tracker.Pages.Patients
 
         private bool PatientExists(int id)
         {
-          return (_context.Patients?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Patients?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

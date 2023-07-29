@@ -1,12 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Patient_Tracker.Model
+﻿namespace Patient_Tracker.Model
 {
     // Patient class represents a patient entity.
     public class Patient
     {
         // Id of the patient.
         public int Id { get; set; }
+
+        // Id of the doctor licence number.
+        public string DoctorName { get; set; }
+
+        // PPS number of the patient.
+        [MaxLength(8)]
+        public string PPS { get; set; }
 
         // First name of the patient.
         public string FirstName { get; set; }

@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Patient_Tracker.Data;
-namespace Patient_Tracker
+﻿namespace Patient_Tracker
 {
     public class Program
     {

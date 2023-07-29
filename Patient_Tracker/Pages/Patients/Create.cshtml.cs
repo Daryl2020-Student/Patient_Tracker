@@ -24,6 +24,14 @@
                 return Page();
             }
 
+            // Check if a patient with the same pps number already exists
+            bool patientExists = await _context.Patients.AnyAsync(p => p.PPS == Patient.PPS);
+            if (patientExists)
+            {
+                ModelState.AddModelError("Patient.PPS", "A patient with the same PPS number already exists.");
+                return Page();
+            }
+
             _context.Patients.Add(Patient);
             await _context.SaveChangesAsync();
 

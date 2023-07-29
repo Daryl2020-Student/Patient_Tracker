@@ -15,6 +15,7 @@
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Address</th>
+                <th>Licence Number</th>
                 <th></th>
             </tr>
         </thead>
@@ -26,6 +27,7 @@
                     <td>@Html.DisplayFor(modelItem => item.DLastName)</td>
                     <td>@Html.DisplayFor(modelItem => item.Email)</td>
                     <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                    <td>@Html.DisplayFor(modelItem => item.LicenceNumber)</td>
                     <td>
                         <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
                         <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-secondary">Details</a>
