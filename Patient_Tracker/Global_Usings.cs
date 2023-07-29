@@ -11,3 +11,5 @@ global using Patient_Tracker.Model;
 global using Microsoft.CodeAnalysis.CodeFixes;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using System.ComponentModel.DataAnnotations;
+global using System.Text.RegularExpressions;

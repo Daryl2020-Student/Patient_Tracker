@@ -5,14 +5,17 @@
     ViewData["Title"] = "Patient Details";
 }
 
-<div class="container center-content">
-    <h1>Patient Details</h1>
+<h1>Patient Details</h1>
 
+
+<div>
+    <hr />
     <div>
         <hr />
         <dl class="row">
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.Patient.PPS)</dd>
             <dt class="col-sm-4">PPS Number:</dt>
-            <dd class="col-sm-8">@Html.DisplayFor(model => model.Patient.PPSNo)</dd>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.Patient.PPS)</dd>
             <dt class="col-sm-4">First Name:</dt>
             <dd class="col-sm-8">@Html.DisplayFor(model => model.Patient.FirstName)</dd>
             <dt class="col-sm-4">Last Name:</dt>
@@ -33,9 +36,9 @@
             <dd class="col-sm-8">@Html.DisplayFor(model => model.Patient.DoctorNum)</dd>
         </dl>
     </div>
-    <div>
-        <a asp-page="./Edit" asp-route-id="@Model.Patient?.Id">Edit</a> |
-        <a asp-page="./Index">Back to List</a>
+
+    <div class="form-group">
+        <a asp-page="./Edit" asp-route-id="@Model.Patient?.Id" class="btn btn-success btn-outline-light mt-lg-2 text-center">Edit</a>
+        <a asp-page="./Index" class="btn btn-primary btn-outline-light mt-lg-2 text-center">Back to List</a>
     </div>
 </div>
-

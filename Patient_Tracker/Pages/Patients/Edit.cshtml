@@ -12,88 +12,75 @@
         </div>
     </div>
 
-    <div class="form-group mt-lg-4 mx-auto col-4">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="Patient.Id" />
+    <form method="post">
+        <div class="form-group mt-lg-4 mx-auto col-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Patient.Id" />
 
-        <div class="form-group text-center">
-            <h4 class="text-center">PPS Number:</h4>
-            <input asp-for="Patient.PPSNo" class="form-control text-center" placeholder="Enter PPS Number" />
-            <span asp-validation-for="Patient.PPSNo" class="text-danger text-center"></span>
+            <div class="form-group text-center">
+                <label asp-for="Patient.PPS" class="control-label"><h4>PPS No</h4></label>
+                <input asp-for="Patient.PPS" class="form-control text-center" placeholder="Enter PPS No" />
+                <span asp-validation-for="Patient.PPS" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center">
+                <h4 class="text-center">First Name:</h4>
+                <input asp-for="Patient.FirstName" class="form-control text-center" placeholder="Enter First Name" />
+                <span asp-validation-for="Patient.FirstName" class="text-danger text-center"></span>
+            </div>
+
+            <div class="form-group text-center">
+                <h4 class="text-center">Last Name:</h4>
+                <input asp-for="Patient.LastName" class="form-control text-center" placeholder="Enter Last Name" />
+                <span asp-validation-for="Patient.LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center">
+                <h4 class="text-center">DOB:</h4>
+                <input asp-for="Patient.DOB" class="form-control text-center" placeholder="Enter Date Of Birth" />
+                <span asp-validation-for="Patient.DOB" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center">
+                <h4 class="text-center">Address:</h4>
+                <input asp-for="Patient.Address" class="form-control text-center" placeholder="Enter address" />
+                <span asp-validation-for="Patient.Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center">
+                <h4 class="text-center">Next Of Kin:</h4>
+                <input asp-for="Patient.NextOfKin" class="form-control text-center" placeholder="Enter next of kin" />
+                <span asp-validation-for="Patient.NextOfKin" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center">
+                <h4 class="text-center">Phone Number:</h4>
+                <input asp-for="Patient.PhoneNumber" class="form-control text-center" placeholder="Enter phone number" />
+                <span asp-validation-for="Patient.PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center">
+                <h4 class="text-center">Blood Type:</h4>
+                <input asp-for="Patient.BloodType" class="form-control text-center" placeholder="Enter blood type" />
+                <span asp-validation-for="Patient.BloodType" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center">
+                <label asp-for="Patient.Gender" class="control-label"><h4>Gender</h4></label>
+                <input asp-for="Patient.Gender" class="form-control text-center" placeholder="Enter Gender">
+                <span asp-validation-for="Patient.Gender" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center">
+                <label asp-for="Patient.MedicalHistory" class="control-label"><b>Medical History:</b></label>
+                <textarea asp-for="Patient.MedicalHistory" class="form-control text-center" placeholder="Enter medical history"></textarea>
+                <span asp-validation-for="Patient.MedicalHistory" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center">
+                <input type="submit" value="Edit" class="btn btn-success btn-outline-light mt-lg-2 text-center">
+                <a asp-page="./Index" class="btn btn-primary btn-outline-light mt-lg-2 text-center">Back to List</a>
+            </div>
         </div>
-
-        <div class="form-group text-center">
-            <h4 class="text-center">First Name:</h4>
-            <input asp-for="Patient.FirstName" class="form-control text-center" placeholder="Enter First Name" />
-            <span asp-validation-for="Patient.FirstName" class="text-danger text-center"></span>
-        </div>
-
-        <div class="form-group text-center">
-            <h4 class="text-center">Last Name:</h4>
-            <input asp-for="Patient.LastName" class="form-control text-center" placeholder="Enter Last Name" />
-            <span asp-validation-for="Patient.LastName" class="text-danger"></span>
-        </div>
-
-        <div class="form-group text-center">
-            <h4 class="text-center">DOB:</h4>
-            <input asp-for="Patient.DOB" class="form-control text-center" placeholder="Enter Date Of Birth" />
-            <span asp-validation-for="Patient.DOB" class="text-danger"></span>
-        </div>
-
-        <div class="form-group text-center">
-            <h4 class="text-center">Address:</h4>
-            <input asp-for="Patient.Address" class="form-control text-center" placeholder="Enter address" />
-            <span asp-validation-for="Patient.Address" class="text-danger"></span>
-        </div>
-
-        <div class="form-group text-center">
-            <h4 class="text-center">Next Of Kin:</h4>
-            <input asp-for="Patient.NextOfKin" class="form-control text-center" placeholder="Enter next of kin" />
-            <span asp-validation-for="Patient.NextOfKin" class="text-danger"></span>
-        </div>
-
-        <div class="form-group text-center">
-            <h4 class="text-center">Phone Number:</h4>
-            <input asp-for="Patient.PhoneNumber" class="form-control text-center" placeholder="Enter phone number" />
-            <span asp-validation-for="Patient.PhoneNumber" class="text-danger"></span>
-        </div>
-
-        <div class="form-group text-center">
-            <h4 class="text-center">Blood Type:</h4>
-            <input asp-for="Patient.BloodType" class="form-control text-center" placeholder="Enter blood type" />
-            <span asp-validation-for="Patient.BloodType" class="text-danger"></span>
-        </div>
-
-        <div class="form-group text-center">
-            <h4 class="text-center">Gender:</h4>
-            <select asp-for="Patient.Gender" class="form-control text-center">
-                <option value="">Select gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-            </select>
-            <span asp-validation-for="Patient.Gender" class="text-danger"></span>
-        </div>
-
-        <div class="form-group text-center">
-            <h4 class="text-center">Doctor:</h4>
-            <input asp-for="Patient.DoctorNum" class="form-control text-center" placeholder="Enter Doctor" />
-            <span asp-validation-for="Patient.DoctorNum" class="text-danger text-center"></span>
-        </div>
-
-        @*        <div class="form-group text-center">
-        <label asp-for="Patient.MedicalHistory" class="control-label"><b>Medical History:</b></label>
-        <textarea asp-for="Patient.MedicalHistory" class="form-control text-center" placeholder="Enter medical history"></textarea>
-        <span asp-validation-for="Patient.MedicalHistory" class="text-danger"></span>
-        </div>*@
-
-        @*<div class="form-group text-center">
-        <input type="submit" value="Save" class="btn btn-primary" />
-        </div>*@
-
-        <div class="form-group text-center">
-            <input type="submit" class="btn btn-success btn-outline-light mt-lg-2 text-center">
-            <a asp-page="./Index" class="btn btn-primary btn-outline-light mt-lg-2 text-center">Back to List</a>
-        </div>
-    </div>
+    </form>
 </body>
