@@ -13,9 +13,10 @@
     <div>
         <hr />
         <dl class="row">
-            <dd class="col-sm-8">@Html.DisplayFor(model => model.Patient.PPS)</dd>
+            dt class="col-sm-4">Doctor:</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.Patient.DoctorName)</dd>
             <dt class="col-sm-4">PPS Number:</dt>
-            <dd class="col-sm-8">@Html.DisplayFor(model => model.Patient.PPS)</dd>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.Patient.PPSNo)</dd>
             <dt class="col-sm-4">First Name:</dt>
             <dd class="col-sm-8">@Html.DisplayFor(model => model.Patient.FirstName)</dd>
             <dt class="col-sm-4">Last Name:</dt>
@@ -32,8 +33,6 @@
             <dd class="col-sm-8">@Html.DisplayFor(model => model.Patient.Gender)</dd>
             <dt class="col-sm-4">Phone Number:</dt>
             <dd class="col-sm-8">@Html.DisplayFor(model => model.Patient.PhoneNumber)</dd>
-            <dt class="col-sm-4">Doctor:</dt>
-            <dd class="col-sm-8">@Html.DisplayFor(model => model.Patient.DoctorNum)</dd>
         </dl>
     </div>
 

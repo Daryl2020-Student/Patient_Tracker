@@ -24,11 +24,10 @@
                 return Page();
             }
 
-            // Check if a patient with the same pps number already exists
-            bool patientExists = await _context.Patients.AnyAsync(p => p.PPS == Patient.PPS);
-            if (patientExists)
+            var check = CheckPPS();
+            if (check.Contains(Patient.PPSNo))
             {
-                ModelState.AddModelError("Patient.PPS", "A patient with the same PPS number already exists.");
+                ModelState.AddModelError(string.Empty, "This PPS Number is already registered");
                 return Page();
             }
 
@@ -36,6 +35,29 @@
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
+
+            //// Check if a patient with the same pps number already exists
+            //bool patientExists = await _context.Patients.AnyAsync(p => p.PPSNo == Patient.PPSNo); 
+            //if (patientExists)
+            //{
+            //    ModelState.AddModelError("Patient.PPS", "A patient with the same PPS number already exists.");
+            //    return Page();
+            //}
+
+            //_context.Patients.Add(Patient);
+            //await _context.SaveChangesAsync();
+
+            //return RedirectToPage("./Index");
+        }
+
+        private List<string> CheckPPS()
+        {
+            List<string> emailList = new();
+            foreach (var item in _context.Patients)
+            {
+                emailList.Add(item.PPSNo);
+            }
+            return emailList;
         }
     }
 }
