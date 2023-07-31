@@ -9,7 +9,7 @@
             _context = context;
         }
 
-        public IList<Patient> Patient { get;set; } = default!;
+        public IList<Patient> Patient { get; set; } = default!;
 
         [BindProperty(SupportsGet = true)]
         public string? SearchString { get; set; }
@@ -21,11 +21,12 @@
         public async Task OnGetAsync()
         {
             IQueryable<string> genderQuery = from p in _context.Patients
-                                          orderby p.Gender
-                                          select p.Gender;
+                                             orderby p.Gender
+                                             select p.Gender;
 
             var patients = from p in _context.Patients
                            select p;
+
             if (!string.IsNullOrEmpty(SearchString))
             {
                 patients = patients.Where(s => s.PPSNo.Contains(SearchString));

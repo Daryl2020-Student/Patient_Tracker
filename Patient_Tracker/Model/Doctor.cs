@@ -27,7 +27,7 @@ namespace Patient_Tracker.Model
 
         //Doctors medical licence number
         [DisplayName("Licence Number")]
-        [MaxLength(8)]
+        [StringLength(8)]
         public string LicenceNumber { get; set; }
     }
 }

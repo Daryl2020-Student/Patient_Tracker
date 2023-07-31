@@ -11,10 +11,6 @@ namespace Patient_Tracker.Model
         // Id of the doctor licence number.
         public string DoctorName { get; set; }
 
-        // PPS number of the patient.
-        [MaxLength(8)]
-        public string PPS { get; set; }
-
         // First name of the patient.
         public string FirstName { get; set; }
 
@@ -32,7 +28,7 @@ namespace Patient_Tracker.Model
         public string NextOfKin { get; set; }
 
         // Blood type of the patient.
-        [RegularExpression(@"^[A-Z]+[A-Z""'\s-]*$")]
+        [RegularExpression(@"^(A|B|AB|O)[+-]$")]
         [StringLength(3)]
         [Required]
         public string BloodType { get; set; }
@@ -45,7 +41,6 @@ namespace Patient_Tracker.Model
 
         // Phone number of the patient.
         [DataType(DataType.PhoneNumber)]
-        [MaxLength(10)]
         public int PhoneNumber { get; set; }
 
         //PPS number of the patient.
@@ -53,11 +48,5 @@ namespace Patient_Tracker.Model
         [Required]
         [StringLength(8)]
         public string PPSNo { get; set; }
-
-        //Doctor assigned of the patient.
-        [RegularExpression(@"^[a-zA-Z0-9\s]*$")]
-        [Required]
-        [StringLength(8)]
-        public string DoctorNum { get; set; }
     }
 }

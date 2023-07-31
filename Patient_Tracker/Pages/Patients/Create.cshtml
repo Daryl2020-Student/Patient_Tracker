@@ -19,12 +19,6 @@
             <input type="hidden" asp-for="Patient.DoctorName" />
 
             <div class="form-group text-center">
-                <label asp-for="Patient.PPS" class="control-label"><h4>PPS No</h4></label>
-                <input asp-for="Patient.PPS" class="form-control text-center" placeholder="Enter PPS No" />
-                <span asp-validation-for="Patient.PPS" class="text-danger"></span>
-            </div>
-
-            <div class="form-group text-center">
                 <label asp-for="Patient.PPSNo" class="control-label"><h4>PPS Number</h4></label>
                 <input asp-for="Patient.PPSNo" class="form-control text-center" placeholder="Enter PPS Number" />
                 <span asp-validation-for="Patient.PPSNo" class="text-danger"></span>
@@ -77,6 +71,12 @@
                 <input asp-for="Patient.PhoneNumber" class="form-control text-center" placeholder="Enter Phone Number" />
                 <span asp-validation-for="Patient.PhoneNumber" class="text-danger"></span>
             </div>
+
+@*            <div class="form-group text-center">
+                <label asp-for="Doctor.LicenceNumber" class="control-label"><h4>Doctor Assigned</h4></label>
+                <input asp-for="Doctor.LicenceNumber" class="form-control text-center" placeholder="Doctor has to be signed in" />
+                <span asp-validation-for="Doctor.LicenceNumber" class="text-danger"></span>
+            </div>*@
 
             <div class="form-group text-center">
                 <label asp-for="Patient.MedicalHistory" class="control-label"><h4>Medical History</h4></label>

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Patient_Tracker.Migrations
 {
     /// <inheritdoc />
-    public partial class Patient_Create : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,7 +21,8 @@ namespace Patient_Tracker.Migrations
                     DLastName = table.Column<string>(type: "TEXT", nullable: false),
                     Address = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
-                    Password = table.Column<string>(type: "TEXT", nullable: false)
+                    Password = table.Column<string>(type: "TEXT", nullable: false),
+                    LicenceNumber = table.Column<string>(type: "TEXT", maxLength: 8, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -34,15 +35,17 @@ namespace Patient_Tracker.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    DoctorName = table.Column<string>(type: "TEXT", nullable: false),
                     FirstName = table.Column<string>(type: "TEXT", nullable: false),
                     LastName = table.Column<string>(type: "TEXT", nullable: false),
                     DOB = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     Address = table.Column<string>(type: "TEXT", nullable: false),
                     NextOfKin = table.Column<string>(type: "TEXT", nullable: false),
-                    BloodType = table.Column<string>(type: "TEXT", nullable: false),
+                    BloodType = table.Column<string>(type: "TEXT", maxLength: 3, nullable: false),
                     Gender = table.Column<string>(type: "TEXT", nullable: false),
                     MedicalHistory = table.Column<string>(type: "TEXT", nullable: false),
-                    PhoneNumber = table.Column<int>(type: "INTEGER", nullable: false)
+                    PhoneNumber = table.Column<int>(type: "INTEGER", maxLength: 10, nullable: false),
+                    PPSNo = table.Column<string>(type: "TEXT", maxLength: 8, nullable: false)
                 },
                 constraints: table =>
                 {
