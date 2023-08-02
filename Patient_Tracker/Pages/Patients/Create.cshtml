@@ -72,6 +72,12 @@
                 <span asp-validation-for="Patient.PhoneNumber" class="text-danger"></span>
             </div>
 
+            <div class="form-group text-center">
+                <label asp-for="Patient.DoctorName" class="control-label"><h4>Doctor</h4></label>
+                <input asp-for="Patient.DoctorName" class="form-control text-center" placeholder="Enter Doctor" />
+         @*       <span asp-validation-for="Patient.DoctorName" class="text-danger"></span>*@
+            </div>
+
 @*            <div class="form-group text-center">
                 <label asp-for="Doctor.LicenceNumber" class="control-label"><h4>Doctor Assigned</h4></label>
                 <input asp-for="Doctor.LicenceNumber" class="form-control text-center" placeholder="Doctor has to be signed in" />

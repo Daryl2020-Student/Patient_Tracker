@@ -19,7 +19,7 @@
         
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Patients == null || Patient == null)
+          if (_context.Patients == null || Patient == null)
             {
                 return Page();
             }

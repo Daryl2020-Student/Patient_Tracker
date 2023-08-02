@@ -19,7 +19,6 @@ namespace Patient_Tracker.Model
         public string Address { get; set; }
 
         // Email of the doctor.
-        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         // Password of the doctor.
@@ -27,7 +26,6 @@ namespace Patient_Tracker.Model
 
         //Doctors medical licence number
         [DisplayName("Licence Number")]
-        [StringLength(8)]
         public string LicenceNumber { get; set; }
     }
 }

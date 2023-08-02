@@ -2,45 +2,30 @@
 {
     public class IndexModel : PageModel
     {
-        private readonly Patient_Tracker.Data.Patient_Tracker_Context _context;
+        private readonly Patient_Tracker_Context _context;
 
-        public IndexModel(Patient_Tracker.Data.Patient_Tracker_Context context)
+        public IndexModel(Patient_Tracker_Context context)
         {
             _context = context;
         }
 
+
+
+        public string? ppsFilter;
+
+
         public IList<Patient> Patient { get; set; } = default!;
 
-        [BindProperty(SupportsGet = true)]
-        public string? SearchString { get; set; }
-        public SelectList? Gender { get; set; }
-
-        [BindProperty(SupportsGet = true)]
-        public string? PatientGender { get; set; }
-
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string searchString)
         {
-            IQueryable<string> genderQuery = from p in _context.Patients
-                                             orderby p.Gender
-                                             select p.Gender;
-
-            var patients = from p in _context.Patients
-                           select p;
-
-            if (!string.IsNullOrEmpty(SearchString))
+            ppsFilter = searchString;
+            
+            if (!string.IsNullOrEmpty(searchString))
             {
-                patients = patients.Where(s => s.PPSNo.Contains(SearchString));
+                var list = _context.Patients.Where(s => s.PPSNo.Contains(searchString));
+                Patient = await list.ToListAsync();
             }
-
-            if (!string.IsNullOrEmpty(PatientGender))
-            {
-                patients = patients.Where(x => x.Gender == PatientGender);
-            }
-
-            Gender = new SelectList(await genderQuery.Distinct().ToListAsync());
-            Patient = await patients.ToListAsync();
-
-            if (_context.Patients != null)
+            else
             {
                 Patient = await _context.Patients.ToListAsync();
             }
