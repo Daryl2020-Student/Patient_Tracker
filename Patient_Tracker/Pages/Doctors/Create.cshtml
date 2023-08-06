@@ -17,40 +17,41 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Doctor.Id" />
 
+
             <div class="form-group text-center">
-                <label asp-for="Doctor.DFirstName" class="control-label"><h4>First Name</h4></label>
-                <input asp-for="Doctor.DFirstName" class="form-control text-center" placeholder="Enter First Name" />
+                <label asp-for="Doctor.LicenceNumber" class="control-label"><b>Licence Number</b></label>
+                <input asp-for="Doctor.LicenceNumber" type="text" class="form-control text-center" />
+                <span asp-validation-for="Doctor.LicenceNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center">
+                <label asp-for="Doctor.DFirstName" class="control-label"><b>First Name</b></label>
+                <input asp-for="Doctor.DFirstName" type="text" class="form-control text-center" />
                 <span asp-validation-for="Doctor.DFirstName" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Doctor.DLastName" class="control-label"><h4>Last Name</h4></label>
-                <input asp-for="Doctor.DLastName" class="form-control text-center" placeholder="Enter Last Name" />
+                <label asp-for="Doctor.DLastName" class="control-label"><b>Last Name</b></label>
+                <input asp-for="Doctor.DLastName" type="text" class="form-control text-center" />
                 <span asp-validation-for="Doctor.DLastName" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Doctor.Address" class="control-label"><h4>Practice Address</h4></label>
-                <input asp-for="Doctor.Address" class="form-control text-center" placeholder="Enter Practice Address" />
+                <label asp-for="Doctor.Address" class="control-label"><b>Address</b></label>
+                <input asp-for="Doctor.Address" type="text" class="form-control text-center" />
                 <span asp-validation-for="Doctor.Address" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Doctor.Email" class="control-label"><h4>Email</h4></label>
-                <input asp-for="Doctor.Email" class="form-control text-center" placeholder="Enter Email" />
+                <label asp-for="Doctor.Email" class="control-label"><b>Email</b></label>
+                <input asp-for="Doctor.Email" type="text" class="form-control text-center" />
                 <span asp-validation-for="Doctor.Email" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Doctor.Password" class="control-label"><h4>Password</h4></label>
-                <input asp-for="Doctor.Password" class="form-control text-center" placeholder="Enter Password" type="password" />
+                <label asp-for="Doctor.Password" class="control-label"><b>Password</b></label>
+                <input asp-for="Doctor.Password" class="form-control text-center" type="password" />
                 <span asp-validation-for="Doctor.Password" class="text-danger"></span>
-            </div>
-
-            <div class="form-group text-center">
-                <label asp-for="Doctor.LicenceNumber" class="control-label"><h4>Medical Licence</h4></label>
-                <input asp-for="Doctor.LicenceNumber" class="form-control text-center" placeholder="Enter Medical Licence Number" />
-                <span asp-validation-for="Doctor.LicenceNumber" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
