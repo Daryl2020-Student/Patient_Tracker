@@ -9,20 +9,17 @@
             _context = context;
         }
 
-
-
-        public string? ppsFilter;
-
+        public string? FindFilter;
 
         public IList<Patient> Patient { get; set; } = default!;
 
         public async Task OnGetAsync(string searchString)
         {
-            ppsFilter = searchString;
+            FindFilter = searchString;
             
             if (!string.IsNullOrEmpty(searchString))
             {
-                var list = _context.Patients.Where(s => s.PPSNo.Contains(searchString));
+                var list = _context.Patients.Where(s => s.PPSNo.Contains(searchString) || (s.FirstName.Contains(searchString) || (s.LastName.Contains(searchString))));
                 Patient = await list.ToListAsync();
             }
             else

@@ -10,11 +10,11 @@
         <h1 class="mt-4">Patients</h1>
 
         <form asp-page="./Index" method="get">
-            <div class="no-color mt-lg-3">
+            <div class="no-color mt-lg-3 text-center">
                 <p>
-                    <input placeholder="Find booking by name or email" type="text" name="SearchString" value="@Model.ppsFilter" class="form-control text-center" />
+                    <input placeholder="Find Patient by PPS or Name" type="text" name="SearchString" value="@Model.FindFilter" class="form-control text-center" />
                     <button type="submit" class="btn btn-primary btn-outline-light mt-lg-2"> Search</button>
-                    <a asp-page="./Index" class="btn btn-primary btn-outline-light mt-lg-2">Back to Booking List</a>
+                    <a asp-page="./Index" class="btn btn-primary btn-outline-light mt-lg-2">Back to Patient List</a>
                 </p>
             </div>
         </form>
@@ -36,7 +36,7 @@
                     <th>Gender</th>
                     <th>Phone Number</th>
                     <th></th>
-                </tr>
+                </tr>   
             </thead>
 
             <tbody>

@@ -19,76 +19,79 @@
             <input type="hidden" asp-for="Patient.DoctorName" />
 
             <div class="form-group text-center">
-                <label asp-for="Patient.PPSNo" class="control-label"><h4>PPS Number</h4></label>
+                <label asp-for="Patient.PPSNo" class="control-label"><b>PPS Number</b></label>
                 <input asp-for="Patient.PPSNo" class="form-control text-center" placeholder="Enter PPS Number" />
                 <span asp-validation-for="Patient.PPSNo" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Patient.FirstName" class="control-label"><h4>First Name</h4></label>
+                <label asp-for="Patient.FirstName" class="control-label"><b>First Name</b></label>
                 <input asp-for="Patient.FirstName" class="form-control text-center" placeholder="Enter First Name" />
                 <span asp-validation-for="Patient.FirstName" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Patient.LastName" class="control-label"><h4>Last Name</h4></label>
+                <label asp-for="Patient.LastName" class="control-label"><b>Last Name</b></label>
                 <input asp-for="Patient.LastName" class="form-control text-center" placeholder="Enter Last Name" />
                 <span asp-validation-for="Patient.LastName" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Patient.DOB" class="control-label"><h4>Date Of Birth</h4></label>
-                <input asp-for="Patient.DOB" class="form-control text-center" placeholder="Enter Date Of Birth" />
-                <span asp-validation-for="Patient.DOB" class="text-danger"></span>
+                <label asp-for="Patient.DOB" class="control-label"><b>Date Of Birth</b></label>
+                <div class='input-group date' id='date'>
+                    <input asp-for="Patient.DOB" type="text" class="form-control text-center" value="@DateTime.Now.ToString("DD/MM/YYYY")" />
+                    <span class="input-group-addon glyphicon glyphicon-calendar text-center" />
+                </div>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Patient.Address" class="control-label"><h4>Address</h4></label>
+                <label asp-for="Patient.Address" class="control-label"><b>Address</b></label>
                 <input asp-for="Patient.Address" class="form-control text-center" placeholder="Enter Address" />
                 <span asp-validation-for="Patient.Address" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Patient.NextOfKin" class="control-label"><h4>Next Of Kin</h4></label>
+                <label asp-for="Patient.NextOfKin" class="control-label"><b>Next Of Kin</b></label>
                 <input asp-for="Patient.NextOfKin" class="form-control text-center" placeholder="Enter Next Of Kin" />
                 <span asp-validation-for="Patient.NextOfKin" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Patient.BloodType" class="control-label"><h4>Blood Type</h4></label>
+                <label asp-for="Patient.BloodType" class="control-label"><b>Blood Type</b></label>
                 <input asp-for="Patient.BloodType" class="form-control text-center" placeholder="Enter Blood Type" />
                 <span asp-validation-for="Patient.BloodType" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Patient.Gender" class="control-label"><h4>Gender</h4></label>
-                <input asp-for="Patient.Gender" class="form-control text-center" placeholder="Enter Gender" >
+                <label asp-for="Patient.Gender" class="control-label"><b>Gender</b></label>
+                <input asp-for="Patient.Gender" class="form-control text-center" placeholder="Enter Gender">
                 <span asp-validation-for="Patient.Gender" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Patient.PhoneNumber" class="control-label"><h4>Phone Number</h4></label>
+                <label asp-for="Patient.PhoneNumber" class="control-label"><b>Phone Number</b></label>
                 <input asp-for="Patient.PhoneNumber" class="form-control text-center" placeholder="Enter Phone Number" />
                 <span asp-validation-for="Patient.PhoneNumber" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Patient.DoctorName" class="control-label"><h4>Doctor</h4></label>
+                <label asp-for="Patient.DoctorName" class="control-label"><b>Doctor</b></label>
                 <input asp-for="Patient.DoctorName" class="form-control text-center" placeholder="Enter Doctor" />
-         @*       <span asp-validation-for="Patient.DoctorName" class="text-danger"></span>*@
+                <span asp-validation-for="Patient.DoctorName" class="text-danger"></span>
             </div>
 
-@*            <div class="form-group text-center">
-                <label asp-for="Doctor.LicenceNumber" class="control-label"><h4>Doctor Assigned</h4></label>
-                <input asp-for="Doctor.LicenceNumber" class="form-control text-center" placeholder="Doctor has to be signed in" />
-                <span asp-validation-for="Doctor.LicenceNumber" class="text-danger"></span>
+            @*            <div class="form-group text-center">
+            <label asp-for="Doctor.LicenceNumber" class="control-label"><b>Doctor Assigned</b></label>
+            <input asp-for="Doctor.LicenceNumber" class="form-control text-center" placeholder="Doctor has to be signed in" />
+            <span asp-validation-for="Doctor.LicenceNumber" class="text-danger"></span>
             </div>*@
 
             <div class="form-group text-center">
-                <label asp-for="Patient.MedicalHistory" class="control-label"><h4>Medical History</h4></label>
+                <label asp-for="Patient.MedicalHistory" class="control-label"><b>Medical History</b></label>
                 <input asp-for="Patient.MedicalHistory" class="form-control text-center" placeholder="Enter Medical History" />
                 <span asp-validation-for="Patient.MedicalHistory" class="text-danger"></span>
             </div>
+
 
             <div class="form-group text-center">
                 <input type="submit" value="Create" class="btn btn-success btn-outline-light mt-lg-2 text-center">
@@ -97,3 +100,35 @@
         </div>
     </form>
 </body>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+
+
+    <script>
+        $(function () {
+
+            var now = new Date();
+            now.setHours(7);
+            now.setMinutes(0);
+
+            $('#date').datetimepicker({
+                format: 'DD/MM/YYYY',
+                defaultDate: now,
+                minDate: 1 / 1 / 1800,
+            });
+        });
+
+        function getSelectedDate() {
+            var selectedDate = $('#date').data('DateTimePicker').date().format('DD/MM/YYYY');
+            return selectedDate;
+        }
+    </script>
+    }

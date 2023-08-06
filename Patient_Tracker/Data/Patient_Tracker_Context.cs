@@ -1,4 +1,6 @@
-﻿namespace Patient_Tracker.Data
+﻿using Microsoft.EntityFrameworkCore;
+using Patient_Tracker.Model;
+namespace Patient_Tracker.Data
 {
     // Patient_Tracker_Context is the database context for the Patient Tracker application.
     public class Patient_Tracker_Context : DbContext
@@ -11,5 +13,8 @@
 
         // DbSet representing the collection of patients in the database.
         public DbSet<Patient> Patients { get; set; }
+
+        // DbSet representing the collection of patients in the database.
+        public DbSet<Patient_Tracker.Model.Booking> Bookings { get; set; } = default!;
     }
 }

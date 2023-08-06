@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Patient_Tracker.Data;
 
@@ -10,9 +11,11 @@ using Patient_Tracker.Data;
 namespace Patient_Tracker.Migrations
 {
     [DbContext(typeof(Patient_Tracker_Context))]
-    partial class Patient_Tracker_ContextModelSnapshot : ModelSnapshot
+    [Migration("20230802105635_Bookings")]
+    partial class Bookings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.9");
@@ -27,6 +30,7 @@ namespace Patient_Tracker.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("BookingName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("BookingPPS")

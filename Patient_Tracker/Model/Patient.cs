@@ -18,7 +18,6 @@ namespace Patient_Tracker.Model
         public string LastName { get; set; }
 
         // Date of birth of the patient.
-        [DataType(DataType.Date)]
         public DateOnly DOB { get; set; }
 
         // Address of the patient.
