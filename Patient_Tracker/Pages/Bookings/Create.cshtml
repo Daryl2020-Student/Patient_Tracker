@@ -1,0 +1,91 @@
+﻿@page
+@model Patient_Tracker.Pages.Bookings.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<body>
+    <div class="text-center" style="padding-block: 20px;">
+        <div class="align-content-center text-black">
+            <h1>Create Patient Booking</h1>
+        </div>
+    </div>
+
+    <form style="text-align:center" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group mt-lg-4 mx-auto col-4">
+
+       @*     <div class="form-group text-center">
+                <label asp-for="Booking.BookingName" class="control-label"><b>PPS Number</b></label>
+                <input asp-for="Booking.BookingName" type="text" class="form-control text-center" />
+                <span asp-validation-for="Booking.BookingName" class="text-danger"></span>
+            </div>*@
+            <div class="form-group text-center">
+                <label asp-for="Booking.BookingPPS" class="control-label"><b>PPS Number</b></label>
+                <input asp-for="Booking.BookingPPS" type="text" class="form-control text-center" />
+                <span asp-validation-for="Booking.BookingPPS" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center">
+                <label asp-for="Booking.BookingDate" class="control-label"><b>Date</b></label>
+                <div class='input-group date' id='date'>
+                    <input asp-for="Booking.BookingDate" type="text" class="form-control text-center" value="@DateTime.Now.ToString("DD/MM/YYYY")" />
+                    <span class="input-group-addon glyphicon glyphicon-calendar text-center" />
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <label asp-for="Booking.BookingTime" class="control-label"><b>Time</b></label>
+                <div class='input-group time' id='time'>
+                    <input asp-for="Booking.BookingTime" type="text" class="form-control text-center" />
+                    <span class="input-group-addon glyphicon glyphicon-dashboard text-center" />
+                </div>
+            </div>
+
+            <input type="submit" class="btn btn-success btn-outline-light mt-lg-2">
+            <a asp-page="./Index" class="btn btn-primary btn-outline-light mt-lg-2">Back to List</a>
+        </div>
+    </form>
+</body>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+
+
+    <script>
+        $(function () {
+
+            var now = new Date();
+            now.setHours(7);
+            now.setMinutes(0);
+
+            $('#date').datetimepicker({
+                format: 'DD/MM/YYYY',
+                defaultDate: now,
+                minDate: now
+            });
+
+            $('#time').datetimepicker({
+                stepping: 15,
+                format: 'hh:mm a',
+                defaultDate: now,
+                minDate: now
+            });
+        });
+
+        function getSelectedDateTime() {
+            var selectedDate = $('#date').data('DateTimePicker').date().format('DD/MM/YYYY');
+            var selectedTime = $('#time').data('DateTimePicker').date().format('hh:mm a');
+            var selectedDateTime = selectedDate + ' ' + selectedTime;
+            return selectedDateTime;
+        }
+    </script>
+    }

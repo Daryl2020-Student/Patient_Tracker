@@ -9,7 +9,7 @@ namespace Patient_Tracker.Model
         public int Id { get; set; }
 
         // Id of the doctor licence number.
-        public string DoctorName { get; set; }
+        public string? DoctorName { get; set; }
 
         // First name of the patient.
         public string FirstName { get; set; }
@@ -18,7 +18,6 @@ namespace Patient_Tracker.Model
         public string LastName { get; set; }
 
         // Date of birth of the patient.
-        [DataType(DataType.Date)]
         public DateOnly DOB { get; set; }
 
         // Address of the patient.
@@ -40,7 +39,10 @@ namespace Patient_Tracker.Model
         public string MedicalHistory { get; set; }
 
         // Phone number of the patient.
-        [DataType(DataType.PhoneNumber)]
+        //[Required(ErrorMessage = "You must provide a phone number")]
+        //[Display(Name = "Home Phone")]
+        //[DataType(DataType.PhoneNumber)]
+        //[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         public int PhoneNumber { get; set; }
 
         //PPS number of the patient.

@@ -1,0 +1,51 @@
+﻿@page
+@model Patient_Tracker.Pages.Bookings.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Appointments</h1>
+
+<form asp-page="./Index" method="get">
+    <div class="no-color mt-lg-3 text-center">
+        <p>
+            <input placeholder="Find Booking
+" type="text" name="SearchString" value="@Model.FindFilter" class="form-control text-center" />
+            <button type="submit" class="btn btn-primary btn-outline-light mt-lg-2"> Search</button>
+            <a asp-page="./Index" class="btn btn-primary btn-outline-light mt-lg-2">Back to Booking List</a>
+        </p>
+    </div>
+</form>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>PPS Number</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Booking)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.BookingPPS)</td>
+                <td>@Html.DisplayFor(modelItem => item.BookingName)</td>
+                <td>@Html.DisplayFor(modelItem => item.BookingDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.BookingTime)</td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.BookingID" class="btn btn-primary">Edit</a>
+                    <a asp-page="./Details" asp-route-id="@item.BookingID" class="btn btn-secondary">Details</a>
+                    <a asp-page="./Delete" asp-route-id="@item.BookingID" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
