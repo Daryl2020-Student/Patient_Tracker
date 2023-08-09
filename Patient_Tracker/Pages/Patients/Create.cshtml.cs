@@ -19,7 +19,12 @@
         
         public async Task<IActionResult> OnPostAsync()
         {
-          if (_context.Patients == null || Patient == null)
+            //if (_context.Patients == null || Patient == null)
+            //  {
+            //      return Page();
+            //  }
+
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
@@ -34,30 +39,17 @@
             _context.Patients.Add(Patient);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
-
-            //// Check if a patient with the same pps number already exists
-            //bool patientExists = await _context.Patients.AnyAsync(p => p.PPSNo == Patient.PPSNo); 
-            //if (patientExists)
-            //{
-            //    ModelState.AddModelError("Patient.PPS", "A patient with the same PPS number already exists.");
-            //    return Page();
-            //}
-
-            //_context.Patients.Add(Patient);
-            //await _context.SaveChangesAsync();
-
-            //return RedirectToPage("./Index");
+            return RedirectToPage("./Index");            
         }
 
         private List<string> CheckPPS()
         {
-            List<string> emailList = new();
+            List<string> ppsList = new();
             foreach (var item in _context.Patients)
             {
-                emailList.Add(item.PPSNo);
+                ppsList.Add(item.PPSNo);
             }
-            return emailList;
+            return ppsList;
         }
     }
 }
