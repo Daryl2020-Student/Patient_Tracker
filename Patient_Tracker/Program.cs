@@ -10,6 +10,7 @@
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddControllers();
 
             // Configure the Patient_Tracker_Context to use SQLite as the database provider.
             builder.Services.AddDbContext<Patient_Tracker_Context>(options =>
@@ -36,6 +37,7 @@
             app.UseAuthorization();
 
             app.MapRazorPages();
+            app.MapControllers();
 
             app.Run();
         }
