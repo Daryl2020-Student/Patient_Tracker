@@ -1,9 +1,12 @@
-﻿namespace Patient_Tracker.Pages.Patients
+﻿using Patient_Tracker.Services;
+
+namespace Patient_Tracker.Pages.Patients
 {
     public class CreateModel : PageModel
     {
         private readonly Patient_Tracker_Context _context;
 
+        private readonly AddressService _addressService = new();
         public CreateModel(Patient_Tracker_Context context)
         {
             _context = context;
@@ -19,15 +22,13 @@
         
         public async Task<IActionResult> OnPostAsync()
         {
-            //if (_context.Patients == null || Patient == null)
-            //  {
-            //      return Page();
-            //  }
-
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+            var beans = await GetEircodeAsync(Patient.Address);
+
+            Patient.Address = beans;
 
             var check = CheckPPS();
             if (check.Contains(Patient.PPSNo))
@@ -50,6 +51,21 @@
                 ppsList.Add(item.PPSNo);
             }
             return ppsList;
+        }
+
+        private async Task<string> GetEircodeAsync(string eir)
+        {
+            string eircode = "";
+
+            var getEircode = await _addressService.GetAddress(eir);
+
+            foreach (var item in getEircode)
+            {
+                {
+                eircode = item.formatted_address;
+            }
+            }
+            return eircode;
         }
     }
 }
