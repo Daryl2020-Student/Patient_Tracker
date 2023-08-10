@@ -16,3 +16,4 @@ global using System.Text.RegularExpressions;
 global using System.Net.Http;
 global using Microsoft.Extensions.Configuration;
 global using Newtonsoft.Json.Linq;
+global using Newtonsoft.Json;

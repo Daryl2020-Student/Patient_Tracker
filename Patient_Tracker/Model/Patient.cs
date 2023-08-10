@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Patient_Tracker.Model
+﻿namespace Patient_Tracker.Model
 {
     // Patient class represents a patient entity.
     public class Patient
@@ -39,10 +37,6 @@ namespace Patient_Tracker.Model
         public string MedicalHistory { get; set; }
 
         // Phone number of the patient.
-        //[Required(ErrorMessage = "You must provide a phone number")]
-        //[Display(Name = "Home Phone")]
-        //[DataType(DataType.PhoneNumber)]
-        //[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         public int PhoneNumber { get; set; }
 
         //PPS number of the patient.
