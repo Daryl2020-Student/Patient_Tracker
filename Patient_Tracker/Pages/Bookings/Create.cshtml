@@ -16,11 +16,6 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group mt-lg-4 mx-auto col-4">
 
-       @*     <div class="form-group text-center">
-                <label asp-for="Booking.BookingName" class="control-label"><b>PPS Number</b></label>
-                <input asp-for="Booking.BookingName" type="text" class="form-control text-center" />
-                <span asp-validation-for="Booking.BookingName" class="text-danger"></span>
-            </div>*@
             <div class="form-group text-center">
                 <label asp-for="Booking.BookingPPS" class="control-label"><b>PPS Number</b></label>
                 <input asp-for="Booking.BookingPPS" type="text" class="form-control text-center" />
@@ -44,7 +39,7 @@
             </div>
 
             <input type="submit" class="btn btn-success btn-outline-light mt-lg-2">
-            <a asp-page="./Index" class="btn btn-primary btn-outline-light mt-lg-2">Back to List</a>
+            <a asp-page="./Index" class="btn-back">Back to List</a>
         </div>
     </form>
 </body>

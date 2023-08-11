@@ -5,27 +5,46 @@
     ViewData["Title"] = "Home";
 }
 
-@if (!Model.ShowNavbar) {
-    <style>
-        .navbar {
-            display: none;
-        }
-    </style>
-}
+<html>
+<body>
+    @if (!Model.ShowNavbar)
+    {
+        <style>
+            .navbar {
+                display: none;
+            }
+        </style>
+    }
 
-<h1>Welcome to the Patient Tracker Application</h1>
+    <h1>Welcome to the Patient Tracker Application</h1>
+    <div class="login">
+        <p>Please enter your email and password to log in:</p>
 
-<p>Please enter your email and password to log in:</p>
+        <form method="post">
+            <label for="Email">Email</label>
+            <input asp-for="Doctor.Email" class="form-control" required />
 
-<form method="post">
-    <div class="form-group">
-        <label for="Email">Email</label>
-        <input asp-for="Doctor.Email" class="form-control" required />
+            <div class="form-group">
+                <label for="Password">Password</label>
+                <input asp-for="Doctor.Password" class="form-control" type="password" required />
+                <div id="caps-lock-warning" style="color: red; display: none;">Caps Lock is enabled</div>
+            </div>
+            <button type="submit" class="btn">Log In</button>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="Password">Password</label>
-        <input asp-for="Doctor.Password" class="form-control" type="password" required />
-    </div>
-    <button type="submit" class="btn btn-primary">Log In</button>
-</form>
 
+    <script>
+        const capsLockWarning = document.getElementById('caps-lock-warning');
+        const passwordInput = document.querySelector('input[type="password"]');
+
+        passwordInput.addEventListener('keyup', function (event) {
+            if (event.getModifierState('CapsLock')) {
+                capsLockWarning.style.display = 'block';
+            } else {
+                capsLockWarning.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>

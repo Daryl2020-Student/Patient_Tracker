@@ -13,20 +13,19 @@
             <div class="no-color mt-lg-3 text-center">
                 <p>
                     <input placeholder="Find Patient by PPS or Name" type="text" name="SearchString" value="@Model.FindFilter" class="form-control text-center" />
-                    <button type="submit" class="btn btn-primary btn-outline-light mt-lg-2"> Search</button>
-                    <a asp-page="./Index" class="btn btn-primary btn-outline-light mt-lg-2">Back to Patient List</a>
+                    <button type="submit" class="btn"> Search</button>
+                    <a asp-page="./Index" class="btn" style="background-color:blue">Back to Patient List</a>
                 </p>
             </div>
         </form>
 
         <p>
-            <a asp-page="Create" class="btn btn-primary">Create New</a>
+            <a asp-page="Create" class="btn">Create New</a>
         </p>
 
         <table class="table">
             <thead>
                 <tr>
-                    <th>Doctor</th>
                     <th>PPS Number</th>
                     <th>First Name</th>
                     <th>Last Name</th>
@@ -35,15 +34,12 @@
                     <th>Blood Type</th>
                     <th>Gender</th>
                     <th>Phone Number</th>
-                    <th></th>
-                </tr>   
+                </tr>
             </thead>
-
             <tbody>
                 @foreach (var item in Model.Patient)
                 {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => item.DoctorName)</td>
+                    <tr onclick="window.location.href = '@Url.Page("./Details", new { id = item.Id })';" style="cursor: pointer;">
                         <td>@Html.DisplayFor(modelItem => item.PPSNo)</td>
                         <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
                         <td>@Html.DisplayFor(modelItem => item.LastName)</td>
@@ -54,9 +50,9 @@
                         <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
 
                         <td>
-                            <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
-                            <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-secondary">History</a>
-                            <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                            <a asp-page="./Edit" asp-route-id="@item.Id" class="btn" style="background-color: blue">Edit</a>
+                            <a asp-page="./Delete" asp-route-id="@item.Id" class="btn" style="background-color: red">Delete</a>
+                            <a asp-page="/Prescriptions/Create" asp-route-id="@item.Id" class="btn" style="background-color: orange">Prescribe</a>
                         </td>
                     </tr>
                 }
@@ -64,3 +60,4 @@
         </table>
     </div>
 </body>
+

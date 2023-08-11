@@ -1,8 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
-
-namespace Patient_Tracker.Model
+﻿namespace Patient_Tracker.Model
 {
     public class Booking
     {

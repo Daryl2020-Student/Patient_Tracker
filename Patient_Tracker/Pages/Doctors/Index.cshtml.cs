@@ -9,12 +9,20 @@
             _context = context;
         }
 
+        public string? FindFilter;
+
         public IList<Doctor> Doctors { get; set; } = default!;
 
-        // GET handler for the index page
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string searchString)
         {
-            if (_context.Doctors != null)
+            FindFilter = searchString;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var list = _context.Doctors.Where(s => s.LicenceNumber.Contains(searchString) || (s.DFirstName.Contains(searchString) || (s.DLastName.Contains(searchString))));
+                Doctors = await list.ToListAsync();
+            }
+            else
             {
                 Doctors = await _context.Doctors.ToListAsync(); // Retrieve the list of doctors from the context and assign it to the Doctor property
             }
