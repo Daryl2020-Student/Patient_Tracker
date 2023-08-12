@@ -2,44 +2,49 @@
 @model Patient_Tracker.Pages.Bookings.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Booking";
 }
 
-<h1>Edit</h1>
+<body>
 
-<h4>Booking</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
+    <div class="text-center" style="padding-block: 20px;">
+        <div class="align-content-center text-black">
+            <h1>Edit Appointment</h1>
+        </div>
+    </div>
+    <hr />
+    <hr />
+
+    <form method="post">
+        <div class="form-group mt-lg-4 mx-auto col-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Booking.BookingID" />
-            <div class="form-group">
-                <label asp-for="Booking.BookingName" class="control-label"></label>
-                <input asp-for="Booking.BookingName" class="form-control" />
+
+            <div class="form-group text-center">
+                <label asp-for="Booking.BookingName" class="control-label"><b>Name</b></label>
+                <input asp-for="Booking.BookingName" class="form-control text-center" />
                 <span asp-validation-for="Booking.BookingName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Booking.BookingDate" class="control-label"></label>
-                <input asp-for="Booking.BookingDate" class="form-control" />
+            <div class="form-group text-center">
+                <label asp-for="Booking.BookingDate" class="control-label"><b>Date</b></label>
+                <input asp-for="Booking.BookingDate" class="form-control text-center" />
                 <span asp-validation-for="Booking.BookingDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Booking.BookingTime" class="control-label"></label>
-                <input asp-for="Booking.BookingTime" class="form-control" />
+            <div class="form-group text-center">
+                <label asp-for="Booking.BookingTime" class="control-label"><b>Time</b></label>
+                <input asp-for="Booking.BookingTime" class="form-control text-center" />
                 <span asp-validation-for="Booking.BookingTime" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+
+            <div class="form-group text-center">
+                <input type="submit" value="Save" class="btn">
+                <a asp-page="./Index" class="btn" style="background-color:blue">Back to List</a>
             </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
-
+        </div>
+    </form>
+</body>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

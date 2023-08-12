@@ -2,20 +2,13 @@
 @model Patient_Tracker.Pages.Doctors.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Doctor Details";
 }
 
-<style>
-    .center-content {
-        text-align: center;
-        max-width: 400px;
-        margin: 0 auto;
-    }
-</style>
+<h1>Doctor Details</h1>
 
 <div class="container center-content">
-    <h1>Doctor Details</h1>
-
+    <hr />
     <div>
         <hr />
         <dl class="row">
@@ -30,12 +23,9 @@
             <dt class="col-sm-4">Licence Number:</dt>
             <dd class="col-sm-8">@Html.DisplayFor(model => model.Doctor.LicenceNumber)</dd>
         </dl>
-        </dl>
     </div>
-    <div>
-        <a asp-page="./Edit" class="btn-edit" role="button" aria-pressed="true" asp-route-id="@Model.Doctor.Id">Edit</a>
+    <div class="form-group">
+        <a asp-page="./Edit" asp-route-id="@Model.Doctor?.Id" class="btn">Edit</a> |
+        <a asp-page="./Index" class="btn" style="background-color:blue">Back to List</a>
     </div>
-    <p class="text-center">
-        <a asp-page="./Index" class="btn-back">Back to List</a>
-    </p>
 </div>

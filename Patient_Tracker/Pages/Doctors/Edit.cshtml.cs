@@ -1,8 +1,12 @@
-﻿namespace Patient_Tracker.Pages.Doctors
+﻿using Patient_Tracker.Services;
+
+namespace Patient_Tracker.Pages.Doctors
 {
     public class EditModel : PageModel
     {
         private readonly Patient_Tracker.Data.Patient_Tracker_Context _context;
+
+        private readonly AddressService _addressService = new();
 
         public EditModel(Patient_Tracker.Data.Patient_Tracker_Context context)
         {
@@ -33,6 +37,11 @@
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         public async Task<IActionResult> OnPostAsync()
         {
+
+            var AddVal = await GetEircodeAsync(Doctor.Address);
+
+            Doctor.Address = AddVal;
+
             if (!ModelState.IsValid)
             {
                 return Page(); // If the model state is not valid, return the page with validation errors
@@ -63,6 +72,21 @@
         private bool DoctorExists(int id)
         {
             return (_context.Doctors?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        private async Task<string> GetEircodeAsync(string eir)
+        {
+            string eircode = "";
+
+            var getEircode = await _addressService.GetAddress(eir);
+
+            foreach (var item in getEircode)
+            {
+                {
+                    eircode = item.formatted_address;
+                }
+            }
+            return eircode;
         }
     }
 }

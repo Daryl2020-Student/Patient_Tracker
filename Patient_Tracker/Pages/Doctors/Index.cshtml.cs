@@ -24,8 +24,28 @@
             }
             else
             {
-                Doctors = await _context.Doctors.ToListAsync(); // Retrieve the list of doctors from the context and assign it to the Doctor property
+                Doctors = await Convert();
             }
+        }
+
+        //change all strings to lowercase in Patients object
+        private Task<List<Doctor>> Convert()
+        {
+            var list = _context.Doctors.ToListAsync();
+            foreach (var doctor in list.Result)
+            {
+                doctor.DFirstName = FirstCharToUpper(doctor.DFirstName);
+                doctor.DLastName = FirstCharToUpper(doctor.DLastName);
+                doctor.Email = FirstCharToUpper(doctor.Email);
+            }
+            return list;
+        }
+
+        //first character of string to uppercase
+        private string FirstCharToUpper(string input)
+        {
+            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+            return textInfo.ToTitleCase(input.ToLower());
         }
     }
 }

@@ -6,11 +6,14 @@
 }
 
 <body>
+
     <div class="text-center" style="padding-block: 20px;">
         <div class="align-content-center text-black">
-            <h1>Edit Doctor Profile</h1>
+            <h1>Edit Doctor Details</h1>
         </div>
     </div>
+    <hr />
+    <hr />
 
     <form method="post">
         <div class="form-group mt-lg-4 mx-auto col-4">
@@ -18,50 +21,56 @@
             <input type="hidden" asp-for="Doctor.Id" />
 
             <div class="form-group text-center">
-                <label asp-for="Doctor.DFirstName" class="control-label"><h4>First Name</h4></label>
+                <label asp-for="Doctor.DFirstName" class="control-label"><b>First Name</b></label>
                 <input asp-for="Doctor.DFirstName" class="form-control text-center" placeholder="Enter First Name" />
                 <span asp-validation-for="Doctor.DFirstName" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Doctor.DLastName" class="control-label"><h4>Last Name</h4></label>
+                <label asp-for="Doctor.DLastName" class="control-label"><b>Last Name</b></label>
                 <input asp-for="Doctor.DLastName" class="form-control text-center" placeholder="Enter Last Name" />
                 <span asp-validation-for="Doctor.DLastName" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Doctor.Address" class="control-label"><h4>Practice Address</h4></label>
+                <label asp-for="Doctor.Address" class="control-label"><b>Practice Address</b></label>
                 <input asp-for="Doctor.Address" class="form-control text-center" placeholder="Enter Practice Address" />
                 <span asp-validation-for="Doctor.Address" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Doctor.Email" class="control-label"><h4>Email</h4></label>
+                <label asp-for="Doctor.Email" class="control-label"><b>Email</b></label>
                 <input asp-for="Doctor.Email" class="form-control text-center" placeholder="Enter Email" />
                 <span asp-validation-for="Doctor.Email" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Doctor.LicenceNumber" class="control-label"><h4>Medical Licence</h4></label>
+                <label asp-for="Doctor.LicenceNumber" class="control-label"><b>Medical Licence</b></label>
                 <input asp-for="Doctor.LicenceNumber" class="form-control text-center" placeholder="Enter Medical Licence Number" />
                 <span asp-validation-for="Doctor.LicenceNumber" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <label asp-for="Doctor.Password" class="control-label"><h4>Password</h4></label>
+                <label asp-for="Doctor.Password" class="control-label"><b>Password</b></label>
                 <input asp-for="Doctor.Password" class="form-control text-center" placeholder="Enter Password" type="password" />
                 <span asp-validation-for="Doctor.Password" class="text-danger"></span>
             </div>
 
             <div class="form-group text-center">
-                <input type="submit" value="Save" class="btn btn-success btn-outline-light mt-lg-2 text-center">
-                <a asp-page="./Index" class="btn-back">Back to List</a>
+                <input type="submit" value="Save" class="btn"> |
+                <a asp-page="./Index" class="btn" style="background-color:blue">Back to List</a>
             </div>
         </div>
     </form>
 </body>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+    }

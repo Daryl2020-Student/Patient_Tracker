@@ -7,6 +7,7 @@ namespace Patient_Tracker.Pages.Patients
         private readonly Patient_Tracker_Context _context;
 
         private readonly AddressService _addressService = new();
+
         public CreateModel(Patient_Tracker_Context context)
         {
             _context = context;
@@ -22,19 +23,28 @@ namespace Patient_Tracker.Pages.Patients
         
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-            var beans = await GetEircodeAsync(Patient.Address);
+            var AddVal = await GetEircodeAsync(Patient.Address);
 
-            Patient.Address = beans;
+            Patient.Address = AddVal;
 
             var check = CheckPPS();
             if (check.Contains(Patient.PPSNo))
             {
                 ModelState.AddModelError(string.Empty, "This PPS Number is already registered");
                 return Page();
+            }
+            
+            // update all strings in object to upper
+            foreach (var prop in Patient.GetType().GetProperties())
+            {
+                if (prop.PropertyType == typeof(string))
+                {
+                    var value = (string)prop.GetValue(Patient);
+                    if (value != null)
+                    {
+                        prop.SetValue(Patient, value.ToUpper());
+                    }
+                }
             }
 
             _context.Patients.Add(Patient);

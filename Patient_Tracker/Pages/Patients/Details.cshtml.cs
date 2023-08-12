@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Patient_Tracker.Data;
-using Patient_Tracker.Model;
-
-namespace Patient_Tracker.Pages.Patients
+﻿namespace Patient_Tracker.Pages.Patients
 {
     public class DetailsModel : PageModel
     {
@@ -33,11 +23,26 @@ namespace Patient_Tracker.Pages.Patients
             {
                 return NotFound();
             }
+
             else 
             {
                 Patient = patient;
             }
+
+            //Change all the patient details to title case
+            Patient.FirstName = ToTitleCase(Patient.FirstName);
+            Patient.LastName = ToTitleCase(Patient.LastName);
+            Patient.NextOfKin = ToTitleCase(Patient.NextOfKin);
+            Patient.Address = ToTitleCase(Patient.Address);
+            Patient.Gender = ToTitleCase(Patient.Gender);
+
             return Page();
+        }
+
+        //Change all the patient details to title case
+        public static string ToTitleCase(string str)
+        {
+            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str.ToLower());
         }
     }
 }
