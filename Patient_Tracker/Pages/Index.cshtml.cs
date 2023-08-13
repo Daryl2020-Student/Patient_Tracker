@@ -23,26 +23,33 @@
 
         public IActionResult OnPost()
         {
+
             if (Doctor.Email == string.Empty || Doctor.Password == string.Empty )
             {
                 return Page();
             }
 
             // Find the doctor with the given email
-            var doctor = _context.Doctors.FirstOrDefault(d => d.Email == Doctor.Email);
+   
+            var doctorEmail = _context.Doctors.FirstOrDefault(d => d.Email == Doctor.Email);
 
-            if (Doctor.Email != Doctor.Email)
-            {
-                // Doctor not found
-                ModelState.AddModelError(string.Empty, "Invalid email or password.");
-                return Page();
-            }
+            var doctorPassword = _context.Doctors.FirstOrDefault(d => d.Password == Doctor.Password);
 
-            if (doctor.Password != Doctor.Password)
+            if (doctorEmail != null && doctorPassword!=null)
             {
-                // Invalid password
-                ModelState.AddModelError(string.Empty, "Invalid email or password.");
-                return Page();
+                if (doctorEmail.Email != Doctor.Email)
+                {
+                    // Doctor not found
+                    ModelState.AddModelError(string.Empty, "Invalid email or password.");
+                    return Page();
+                }
+
+                if (doctorPassword.Password != Doctor.Password)
+                {
+                    // Invalid password
+                    ModelState.AddModelError(string.Empty, "Invalid email or password.");
+                    return Page();
+                }
             }
 
             // Successful login

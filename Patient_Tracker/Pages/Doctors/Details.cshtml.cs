@@ -29,7 +29,19 @@
                 Doctor = doctor; // Set the Doctor property to the found doctor
             }
 
+            //Change all the doctor details to title case
+            Doctor.DFirstName = ToTitleCase(Doctor.DFirstName);
+            Doctor.DLastName = ToTitleCase(Doctor.DLastName);
+            Doctor.Email = ToTitleCase(Doctor.Email);
+            Doctor.Address = ToTitleCase(Doctor.Address);
+
             return Page();
+        }
+
+        //Change all the doctor details to title case
+        public static string ToTitleCase(string str)
+        {
+            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str.ToLower());
         }
     }
 }

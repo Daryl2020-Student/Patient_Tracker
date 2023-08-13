@@ -37,6 +37,7 @@
                 doctor.DFirstName = FirstCharToUpper(doctor.DFirstName);
                 doctor.DLastName = FirstCharToUpper(doctor.DLastName);
                 doctor.Email = FirstCharToUpper(doctor.Email);
+                doctor.Address = FirstCharToUpper(doctor.Address);
             }
             return list;
         }

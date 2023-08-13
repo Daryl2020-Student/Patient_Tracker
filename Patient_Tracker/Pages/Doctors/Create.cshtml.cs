@@ -32,21 +32,10 @@ namespace Patient_Tracker.Pages.Doctors
                 return Page();
             }
 
-            // update all strings in object to upper
-            foreach (var prop in Doctor.GetType().GetProperties())
-            {
-                if (prop.PropertyType == typeof(string))
-                {
-                    var value = (string)prop.GetValue(Doctor);
-                    if (value != null)
-                    {
-                        prop.SetValue(Doctor, value.ToUpper());
-                    }
-                }
-            }
+            var test = await Convert(Doctor);
 
             // Check if a doctor with the same email already exists
-            bool doctorExists = await _context.Doctors.AnyAsync(d => d.Email == Doctor.Email);
+            bool doctorExists = await _context.Doctors.AnyAsync(d => d.Email == test.Email);
             if (doctorExists)
             {
                 ModelState.AddModelError("Doctor.Email", "A doctor with the same email already exists.");
@@ -54,14 +43,14 @@ namespace Patient_Tracker.Pages.Doctors
             }
 
             // Check if a doctor with the same madical licence number already exists
-            bool licenceExists = await _context.Doctors.AnyAsync(d => d.LicenceNumber == Doctor.LicenceNumber);
+            bool licenceExists = await _context.Doctors.AnyAsync(d => d.LicenceNumber == test.LicenceNumber);
             if (doctorExists)
             {
                 ModelState.AddModelError("Doctor.Licence", "A doctor with the same licence number already exists.");
                 return Page();
             }
 
-            _context.Doctors.Add(Doctor);
+            _context.Doctors.Add(test);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
@@ -80,6 +69,26 @@ namespace Patient_Tracker.Pages.Doctors
                 }
             }
             return eircode;
+        }
+
+        //change all strings to lowercase in Doctors object
+        private Task<Doctor> Convert(Doctor doctor)
+        {
+            doctor.DFirstName = CharToUpper(Doctor.DFirstName);
+            doctor.DLastName = CharToUpper(Doctor.DLastName);
+            doctor.Email = CharToUpper(Doctor.Email);
+            doctor.LicenceNumber = CharToUpper(Doctor.LicenceNumber);
+            doctor.Address = CharToUpper(Doctor.Address);
+            doctor.Password = Doctor.Password;
+
+            return Task.FromResult(doctor);
+        }
+
+        //first character of string to uppercase
+        private static string CharToUpper(string input)
+        {
+       
+            return input.ToUpper();
         }
     }
 }
