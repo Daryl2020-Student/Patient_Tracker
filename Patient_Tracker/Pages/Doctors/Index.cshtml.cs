@@ -9,15 +9,44 @@
             _context = context;
         }
 
+        public string? FindFilter;
+
         public IList<Doctor> Doctors { get; set; } = default!;
 
-        // GET handler for the index page
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string searchString)
         {
-            if (_context.Doctors != null)
+            FindFilter = searchString;
+
+            if (!string.IsNullOrEmpty(searchString))
             {
-                Doctors = await _context.Doctors.ToListAsync(); // Retrieve the list of doctors from the context and assign it to the Doctor property
+                var list = _context.Doctors.Where(s => s.LicenceNumber.Contains(searchString) || (s.DFirstName.Contains(searchString) || (s.DLastName.Contains(searchString))));
+                Doctors = await list.ToListAsync();
             }
+            else
+            {
+                Doctors = await Convert();
+            }
+        }
+
+        //change all strings to lowercase in Patients object
+        private Task<List<Doctor>> Convert()
+        {
+            var list = _context.Doctors.ToListAsync();
+            foreach (var doctor in list.Result)
+            {
+                doctor.DFirstName = FirstCharToUpper(doctor.DFirstName);
+                doctor.DLastName = FirstCharToUpper(doctor.DLastName);
+                doctor.Email = FirstCharToUpper(doctor.Email);
+                doctor.Address = FirstCharToUpper(doctor.Address);
+            }
+            return list;
+        }
+
+        //first character of string to uppercase
+        private string FirstCharToUpper(string input)
+        {
+            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+            return textInfo.ToTitleCase(input.ToLower());
         }
     }
 }

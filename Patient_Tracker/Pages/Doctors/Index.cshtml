@@ -4,6 +4,16 @@
 <div class="container">
     <h1 class="mt-4">Doctors</h1>
 
+    <form asp-page="./Index" method="get">
+        <div class="no-color mt-lg-3 text-center">
+            <p>
+                <input placeholder="Find Doctor by Name or Licence" type="text" name="SearchString" value="@Model.FindFilter" class="form-control text-center" />
+                <button type="submit" class="btn"> Search</button>
+                <a asp-page="./Index" class="btn" style="background-color:blue">Back to Doctor List</a>
+            </p>
+        </div>
+    </form>
+
     <p>
         <a asp-page="Create" class="btn btn-primary">Create New</a>
     </p>
@@ -22,16 +32,15 @@
         <tbody>
             @foreach (var item in Model.Doctors)
             {
-                <tr>
+                <tr onclick="window.location.href = '@Url.Page("./Details", new { id = item.Id })';" style="cursor: pointer;">
                     <td>@Html.DisplayFor(modelItem => item.DFirstName)</td>
                     <td>@Html.DisplayFor(modelItem => item.DLastName)</td>
                     <td>@Html.DisplayFor(modelItem => item.Email)</td>
                     <td>@Html.DisplayFor(modelItem => item.Address)</td>
                     <td>@Html.DisplayFor(modelItem => item.LicenceNumber)</td>
                     <td>
-                        <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
-                        <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-secondary">Details</a>
-                        <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                        <a asp-page="./Edit" asp-route-id="@item.Id" class="btn" style="background-color: blue">Edit</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id" class="btn" style="background-color: red">Delete</a>
                     </td>
                 </tr>
             }

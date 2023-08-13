@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-
+#nullable disable
 namespace Patient_Tracker.Model
 {
     public class Doctor

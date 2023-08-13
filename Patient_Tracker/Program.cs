@@ -1,4 +1,4 @@
-﻿    namespace Patient_Tracker
+﻿namespace Patient_Tracker
 {
     public class Program
     {
@@ -11,6 +11,7 @@
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddControllers();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
             // Configure the Patient_Tracker_Context to use SQLite as the database provider.
             builder.Services.AddDbContext<Patient_Tracker_Context>(options =>
@@ -31,6 +32,12 @@
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.MapRazorPages();
+            app.MapDefaultControllerRoute();
 
             app.UseRouting();
 

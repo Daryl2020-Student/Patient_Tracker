@@ -66,7 +66,6 @@ This method checks if the booking pps is registered in the patient database and 
         }
         private Booking AddPatient()
         {
-
             Booking patientList = new();
 
             foreach (var item in _context.Patients)

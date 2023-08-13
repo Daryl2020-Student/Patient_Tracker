@@ -7,6 +7,7 @@ namespace Patient_Tracker.Pages.Patients
         private readonly Patient_Tracker_Context _context;
 
         private readonly AddressService _addressService = new();
+
         public CreateModel(Patient_Tracker_Context context)
         {
             _context = context;
@@ -19,16 +20,12 @@ namespace Patient_Tracker.Pages.Patients
 
         [BindProperty]
         public Patient Patient { get; set; } = new Patient();
-        
+
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-            var beans = await GetEircodeAsync(Patient.Address);
+            var AddVal = await GetEircodeAsync(Patient.Address);
 
-            Patient.Address = beans;
+            Patient.Address = AddVal;
 
             var check = CheckPPS();
             if (check.Contains(Patient.PPSNo))
@@ -37,10 +34,23 @@ namespace Patient_Tracker.Pages.Patients
                 return Page();
             }
 
+            // update all strings in object to upper
+            foreach (var prop in Patient.GetType().GetProperties())
+            {
+                if (prop.PropertyType == typeof(string))
+                {
+                    var value = (string)prop.GetValue(Patient);
+                    if (value != null)
+                    {
+                        prop.SetValue(Patient, value.ToUpper());
+                    }
+                }
+            }
+
             _context.Patients.Add(Patient);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");            
+            return RedirectToPage("./Index");
         }
 
         private List<string> CheckPPS()
@@ -62,8 +72,8 @@ namespace Patient_Tracker.Pages.Patients
             foreach (var item in getEircode)
             {
                 {
-                eircode = item.formatted_address;
-            }
+                    eircode = item.formatted_address;
+                }
             }
             return eircode;
         }

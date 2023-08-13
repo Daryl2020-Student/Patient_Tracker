@@ -16,5 +16,8 @@ namespace Patient_Tracker.Data
 
         // DbSet representing the collection of patients in the database.
         public DbSet<Patient_Tracker.Model.Booking> Bookings { get; set; } = default!;
+
+        // DbSet representing the collection of patients in the database.
+        public DbSet<Patient_Tracker.Model.Prescription> Prescription { get; set; } = default!;
     }
 }

@@ -3448,7 +3448,7 @@ const DefaultAllowlist = {
   h1: [],
   h2: [],
   h3: [],
-  h4: [],
+  b: [],
   h5: [],
   h6: [],
   i: [],
