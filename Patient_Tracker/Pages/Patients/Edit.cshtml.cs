@@ -32,11 +32,29 @@ namespace Patient_Tracker.Pages.Patients
             return Page();
         }
 
+        [BindProperty]
+        public string House { get; set; }
+
+        [BindProperty]
+        public string Street { get; set; }
+
+        [BindProperty]
+        public string Town { get; set; }
+
+        [BindProperty]
+        public string City { get; set; }
+
         public async Task<IActionResult> OnPostAsync()
         {
-            var AddVal = await GetEircodeAsync(Patient.Address);
-
-            Patient.Address = AddVal;
+            if (!string.IsNullOrEmpty(House) && !string.IsNullOrEmpty(Street) && !string.IsNullOrEmpty(Town) && !string.IsNullOrEmpty(City))
+            {
+                Patient.Address = House + "," + Street + "," + Town + "," + City;
+            }
+            else
+            {
+                var AddAddress = await GetEircodeAsync(Patient.Address);
+                Patient.Address = AddAddress;
+            }
 
             if (!ModelState.IsValid)
             {

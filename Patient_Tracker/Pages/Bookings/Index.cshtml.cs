@@ -19,13 +19,36 @@
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                var list = _context.Bookings.Where(s => s.BookingPPS.Contains(searchString) || (s.BookingName.Contains(searchString)));
+                searchString = searchString.ToUpper();
+
+                Booking = await Convert();
+                var list = _context.Bookings.Where(s => s.BookingPPS.Contains(searchString) || 
+                (s.BookingName.Contains(searchString)));
                 Booking = await list.ToListAsync();
             }
             else
             {
-                Booking = await _context.Bookings.ToListAsync();
+                Booking = await Convert();
             }
+        }
+
+        //change all strings to lowercase in Patients object
+        private Task<List<Booking>> Convert()
+        {
+            var list = _context.Bookings.ToListAsync();
+            foreach (var booking in list.Result)
+            {
+                booking.BookingPPS = FirstCharToUpper(booking.BookingPPS);
+                booking.BookingName = FirstCharToUpper(booking.BookingName);
+            }
+            return list;
+        }
+
+        //first character of string to uppercase
+        private string FirstCharToUpper(string input)
+        {
+            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+            return textInfo.ToTitleCase(input.ToLower());
         }
     }
 }

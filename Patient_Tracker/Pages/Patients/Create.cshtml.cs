@@ -21,11 +21,29 @@ namespace Patient_Tracker.Pages.Patients
         [BindProperty]
         public Patient Patient { get; set; } = new Patient();
 
+        [BindProperty]
+        public string House { get; set; }
+
+        [BindProperty]
+        public string Street { get; set; }
+
+        [BindProperty]
+        public string Town { get; set; }
+
+        [BindProperty]
+        public string City { get; set; }
+
         public async Task<IActionResult> OnPostAsync()
         {
-            var AddVal = await GetEircodeAsync(Patient.Address);
-
-            Patient.Address = AddVal;
+            if (!string.IsNullOrEmpty(House) && !string.IsNullOrEmpty(Street) && !string.IsNullOrEmpty(Town) && !string.IsNullOrEmpty(City))
+            {
+                Patient.Address = House + "," + Street + "," + Town + "," + City;
+            }
+            else
+            {
+                var AddAddress = await GetEircodeAsync(Patient.Address);
+                Patient.Address = AddAddress;
+            }
 
             var check = CheckPPS();
             if (check.Contains(Patient.PPSNo))
@@ -34,18 +52,7 @@ namespace Patient_Tracker.Pages.Patients
                 return Page();
             }
 
-            // update all strings in object to upper
-            foreach (var prop in Patient.GetType().GetProperties())
-            {
-                if (prop.PropertyType == typeof(string))
-                {
-                    var value = (string)prop.GetValue(Patient);
-                    if (value != null)
-                    {
-                        prop.SetValue(Patient, value.ToUpper());
-                    }
-                }
-            }
+            await Convert(Patient);
 
             _context.Patients.Add(Patient);
             await _context.SaveChangesAsync();
@@ -76,6 +83,26 @@ namespace Patient_Tracker.Pages.Patients
                 }
             }
             return eircode;
+        }
+
+        //change all strings to uppercase in Doctors object
+        private Task<Patient> Convert(Patient patient)
+        {
+            patient.FirstName = CharToUpper(Patient.FirstName);
+            patient.LastName = CharToUpper(Patient.LastName);
+            patient.Address = CharToUpper(Patient.Address);
+            patient.NextOfKin = CharToUpper(Patient.NextOfKin);
+            patient.BloodType = CharToUpper(Patient.BloodType);
+            patient.Gender = CharToUpper(Patient.Gender);
+            patient.MedicalHistory = CharToUpper(Patient.MedicalHistory);
+            return Task.FromResult(patient);
+        }
+
+        //first character of string to uppercase
+        private static string CharToUpper(string input)
+        {
+
+            return input.ToUpper();
         }
     }
 }

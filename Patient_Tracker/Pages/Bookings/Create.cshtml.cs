@@ -9,6 +9,11 @@
             _context = context;
         }
 
+        public IActionResult OnGet()
+        {
+            return Page();
+        }
+
         [BindProperty]
         public Booking Booking { get; set; } = default!;
 
@@ -32,7 +37,7 @@
             var ppsCount = _context.Bookings.FirstOrDefault(x => x.BookingPPS == Booking.BookingPPS && x.BookingDate == Booking.BookingDate);
             if (ppsCount is not null)
             {
-                ModelState.AddModelError(string.Empty, "You have too many bookings");
+                ModelState.AddModelError(string.Empty, "This Patient has a booking on this date");
                 return Page();
             }
 
@@ -43,6 +48,8 @@
                 ModelState.AddModelError(string.Empty, "Too many patients have been booked this time");
                 return Page();
             }
+
+            var convert = await Convert(Booking);
 
             // Add the booking to the database and save changes
             _context.Bookings.Add(AddPatient());
@@ -82,6 +89,20 @@ This method checks if the booking pps is registered in the patient database and 
                 }
             }
             return patientList;
+        }
+
+        //change all strings to lowercase in Doctors object
+        private Task<Booking> Convert(Booking booking)
+        {
+            booking.BookingPPS = CharToUpper(booking.BookingPPS);
+
+            return Task.FromResult(booking);
+        }
+
+        //first character of string to uppercase
+        private static string CharToUpper(string input)
+        {
+            return input.ToUpper();
         }
     }
 }

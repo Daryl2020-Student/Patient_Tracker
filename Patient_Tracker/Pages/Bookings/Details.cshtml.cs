@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Patient_Tracker.Data;
-using Patient_Tracker.Model;
-
-namespace Patient_Tracker.Pages.Bookings
+﻿namespace Patient_Tracker.Pages.Bookings
 {
     public class DetailsModel : PageModel
     {
@@ -37,7 +27,16 @@ namespace Patient_Tracker.Pages.Bookings
             {
                 Booking = booking;
             }
+
+            Booking.BookingName = ToTitleCase(Booking.BookingName);
+
             return Page();
+        }
+
+        //Change all the doctor details to title case
+        public static string ToTitleCase(string str)
+        {
+            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str.ToLower());
         }
     }
 }

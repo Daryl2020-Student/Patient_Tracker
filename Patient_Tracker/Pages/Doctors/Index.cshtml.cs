@@ -19,7 +19,12 @@
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                var list = _context.Doctors.Where(s => s.LicenceNumber.Contains(searchString) || (s.DFirstName.Contains(searchString) || (s.DLastName.Contains(searchString))));
+                searchString = searchString.ToUpper();
+
+                Doctors = await Convert();
+                var list = _context.Doctors.Where(s => s.LicenceNumber.Contains(searchString) || 
+                (s.DFirstName.Contains(searchString) || 
+                (s.DLastName.Contains(searchString))));
                 Doctors = await list.ToListAsync();
             }
             else

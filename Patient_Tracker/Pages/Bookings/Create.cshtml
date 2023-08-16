@@ -6,43 +6,35 @@
 }
 
 <body>
-    <div class="text-center" style="padding-block: 20px;">
-        <div class="align-content-center text-black">
-            <h1>Create Patient Booking</h1>
-        </div>
-    </div>
+    <form method="post">
+        <div class="form-booking">    
+            <h3>Create Appointment</h3>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Booking.BookingID" />
 
-    <form style="text-align:center" method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group mt-lg-4 mx-auto col-4">
-
-            <div class="form-group text-center">
-                <label asp-for="Booking.BookingPPS" class="control-label"><b>PPS Number</b></label>
-                <input asp-for="Booking.BookingPPS" type="text" class="form-control text-center" />
-                <span asp-validation-for="Booking.BookingPPS" class="text-danger"></span>
+            <div class="form-floating mb-3 content-center">
+                <input asp-for=Booking.BookingPPS class="form-control" id="floatingInput" placeholder="Enter PPS No" required style="height:50px">
+                <label for="floatingInput">PPS </label>
             </div>
 
-            <div class="form-group text-center">
-                <label asp-for="Booking.BookingDate" class="control-label"><b>Date</b></label>
-                <div class='input-group date' id='date'>
-                    <input asp-for="Booking.BookingDate" type="text" class="form-control text-center" value="@DateTime.Now.ToString("DD/MM/YYYY")" />
-                    <span class="input-group-addon glyphicon glyphicon-calendar text-center" />
-                </div>
+            <label asp-for="Booking.BookingDate" class="control-label"><b>Date</b></label>
+            <div class='input-group date' id='date'>
+                <input asp-for="Booking.BookingDate" type="text" class="form-control text-center" value="@DateTime.Now.ToString("DD/MM/YYYY")" style="height:50px" />
+                <span class="input-group-addon glyphicon glyphicon-calendar text-center" />
             </div>
 
-            <div class="form-group text-center">
-                <label asp-for="Booking.BookingTime" class="control-label"><b>Time</b></label>
-                <div class='input-group time' id='time'>
-                    <input asp-for="Booking.BookingTime" type="text" class="form-control text-center" />
-                    <span class="input-group-addon glyphicon glyphicon-dashboard text-center" />
-                </div>
+            <label asp-for="Booking.BookingTime" class="control-label"><b>Time</b></label>
+            <div class='input-group time' id='time'>
+                <input asp-for="Booking.BookingTime" type="text" class="form-control text-center" value="@DateTime.Now.ToString("DD/MM/YYYY")" style="height:50px" />
+                <span class="input-group-addon glyphicon glyphicon-dashboard text-center" />
             </div>
 
-            <input type="submit" class="btn btn-success btn-outline-light mt-lg-2">
-            <a asp-page="./Index" class="btn-back">Back to List</a>
+            <input type="submit" value="Submit" class="btn"> |
+            <a asp-page="./Index" class="btn" style="background-color:blue">Back to List</a>
         </div>
     </form>
 </body>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

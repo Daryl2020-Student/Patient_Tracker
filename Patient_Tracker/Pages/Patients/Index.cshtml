@@ -6,70 +6,66 @@
 }
 
 <body>
-    <div class="container">
-        <h1 class="mt-4">Patients</h1>
+    <form asp-page="./Index" method="get">
+        <input placeholder="Find Patient by Name or PPS Number" name="SearchString" value="@Model.FindFilter" class="search" />
+        <button type="submit" class="btn">Search</button>
+        <a asp-page="./Index" class="btn" style="background-color:blue">Back to Patient List</a>
+    </form>
 
-        <form asp-page="./Index" method="get">
-            <div class="no-color mt-lg-3 text-center">
-                <p>
-                    <input placeholder="Find Patient by PPS or Name" type="text" name="SearchString" value="@Model.FindFilter" class="form-control text-center" />
-                    <button type="submit" class="btn"> Search</button> |
-                    <a asp-page="./Index" class="btn" style="background-color:blue">Back to Patient List</a>
-                </p>
-            </div>
-        </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>PPS Number</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>DOB</th>
+                <th>Next Of Kin</th>
+                <th>Blood Type</th>
+                <th>Gender</th>
+                <th>Phone Number</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Patient)
+            {
 
-        <p>
-            <a asp-page="Create" class="btn">Create New</a>
-        </p>
+                <tr onclick="window.location.href = '@Url.Page("./Details", new { id = item.Id })';" style="cursor: pointer;">            
+                    <td>@Html.DisplayFor(modelItem => item.PPSNo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DOB)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NextOfKin)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BloodType)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Gender)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>PPS Number</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>DOB</th>
-                    <th>Next Of Kin</th>
-                    <th>Blood Type</th>
-                    <th>Gender</th>
-                    <th>Phone Number</th>
-                    <th></th>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id" class="btn" style="background-color: blue">Edit</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id" class="btn" style="background-color: red">Delete</a> |
+                       <a asp-page="/Prescriptions/Create" asp-route-id="@item.Id" class="btn prescribe-btn" style="background-color: orange">Prescribe</a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Patient)
-                {
-                    <tr onclick="window.location.href = '@Url.Page("./Details", new { id = item.Id })';" style="cursor: pointer;">
-                        <td>@Html.DisplayFor(modelItem => item.PPSNo)</td>
-                        <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
-                        <td>@Html.DisplayFor(modelItem => item.LastName)</td>
-                        <td>@Html.DisplayFor(modelItem => item.DOB)</td>
-                        <td>@Html.DisplayFor(modelItem => item.NextOfKin)</td>
-                        <td>@Html.DisplayFor(modelItem => item.BloodType)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Gender)</td>
-                        <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+            }
+        </tbody>
+    </table>
+    <a asp-page="Create" class="btn">Create New</a>
 
-                        <td>
-                            <a asp-page="./Edit" asp-route-id="@item.Id" class="btn" style="background-color: blue">Edit</a> |
-                            <a asp-page="./Delete" asp-route-id="@item.Id" class="btn" style="background-color: red">Delete</a> |
-                            <a asp-page="/Prescriptions/Create" asp-route-id="@item.Id" class="btn" style="background-color: orange">Prescribe</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var prescribeButtons = document.querySelectorAll(".prescribe-btn");
+
+            prescribeButtons.forEach(function (button) {
+                button.addEventListener("click", function (event) {
+                    event.preventDefault();
+
+                    var url = button.getAttribute("href");
+
+                    // Open the URL in a new tab
+                    var newTab = window.open(url, "_blank");
+                    newTab.focus();
+                });
+            });
+        });
+    </script>
 </body>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
-    }
-
