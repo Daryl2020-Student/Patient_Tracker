@@ -8,6 +8,8 @@ namespace Patient_Tracker.Pages.Patients
 
         private readonly AddressService _addressService = new();
 
+        private readonly EircodeService _eircodeService = new();
+
         public CreateModel(Patient_Tracker_Context context)
         {
             _context = context;
@@ -33,6 +35,9 @@ namespace Patient_Tracker.Pages.Patients
         [BindProperty]
         public string City { get; set; }
 
+        [BindProperty]
+        public string Eir { get; set; }
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!string.IsNullOrEmpty(House) && !string.IsNullOrEmpty(Street) && !string.IsNullOrEmpty(Town) && !string.IsNullOrEmpty(City))
@@ -42,6 +47,16 @@ namespace Patient_Tracker.Pages.Patients
             else
             {
                 var AddAddress = await GetEircodeAsync(Patient.Address);
+                Patient.Address = AddAddress;
+            }
+
+            if (!string.IsNullOrEmpty(Eir))
+            {
+                Patient.Address = Eir;
+            }
+            else
+            {
+                var AddAddress = await GetAddressAsync(Patient.Address);
                 Patient.Address = AddAddress;
             }
 
@@ -70,6 +85,7 @@ namespace Patient_Tracker.Pages.Patients
             return ppsList;
         }
 
+        //get eircode from address
         private async Task<string> GetEircodeAsync(string eir)
         {
             string eircode = "";
@@ -83,6 +99,22 @@ namespace Patient_Tracker.Pages.Patients
                 }
             }
             return eircode;
+        }
+
+        //get address from eircode
+        private async Task<string> GetAddressAsync(string add)
+        {
+            string address = "";
+
+            var getAddress = await _eircodeService.GetEircode(add);
+
+            foreach (var item in getAddress)
+            {
+                {
+                    address = item.formatted_address;
+                }
+            }
+            return address;
         }
 
         //change all strings to uppercase in Doctors object

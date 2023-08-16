@@ -1,6 +1,6 @@
 ﻿namespace Patient_Tracker.Model
 {
-    public class ZipModel
+    public class AddressModel
     {
         public List<AddressComponent> address_components { get; set; }
         public string formatted_address { get; set; }

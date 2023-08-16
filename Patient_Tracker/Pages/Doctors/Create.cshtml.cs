@@ -8,6 +8,8 @@ namespace Patient_Tracker.Pages.Doctors
 
         private readonly AddressService _addressService = new();
 
+        private readonly EircodeService _eircodeService = new();
+
         public CreateModel(Patient_Tracker_Context context)
         {
             _context = context;
@@ -33,6 +35,9 @@ namespace Patient_Tracker.Pages.Doctors
         [BindProperty]
         public string City { get; set; }
 
+        [BindProperty]
+        public string Eir { get; set; }
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!string.IsNullOrEmpty(Building) && !string.IsNullOrEmpty(Street) && !string.IsNullOrEmpty(Town) && !string.IsNullOrEmpty(City))
@@ -42,6 +47,16 @@ namespace Patient_Tracker.Pages.Doctors
             else
             {
                 var AddAddress = await GetEircodeAsync(Doctor.Address);
+                Doctor.Address = AddAddress;
+            }
+
+            if (!string.IsNullOrEmpty(Eir))
+            {
+                Doctor.Address = Eir;
+            }
+            else
+            {
+                var AddAddress = await GetAddressAsync(Doctor.Address);
                 Doctor.Address = AddAddress;
             }
 
@@ -87,6 +102,7 @@ namespace Patient_Tracker.Pages.Doctors
             return emailList;
         }
 
+        //get address from eircode google maps api
         private async Task<string> GetEircodeAsync(string eir)
         {
             string eircode = "";
@@ -100,6 +116,22 @@ namespace Patient_Tracker.Pages.Doctors
                 }
             }
             return eircode;
+        }
+
+        //get eircode from address google maps api
+        private async Task<string> GetAddressAsync(string add)
+        {
+            string address = "";
+
+            var getAddress = await _eircodeService.GetEircode(add);
+
+            foreach (var item in getAddress)
+            {
+                {
+                    address = item.formatted_address;
+                }
+            }
+            return address;
         }
 
         //change all strings to lowercase in Doctors object
