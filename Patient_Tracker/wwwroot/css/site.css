@@ -50,9 +50,9 @@ body {
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     margin: auto;
-    margin-top: 50px;
+    margin-top: 100px;
     margin-bottom: 50px;
-    text-align:center;
+    text-align: center;
 }
 
     .table td {
@@ -80,19 +80,6 @@ body {
         border-top: 1px solid #fff;
         border-bottom: 1px solid #ccc;
     }
-
-.login {
-    position: relative;
-    margin: 30px auto;
-    padding: 20px 20px 20px;
-    margin-top: 200px;
-    width: 310px;
-    background: white;
-    border-radius: 3px;
-    -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
-    text-align: center;
-}
 
 .btn {
     margin-block: 2px;
@@ -141,3 +128,104 @@ body {
     max-width: 400px;
     margin: 0 auto;
 }
+
+.form-login {
+    margin-block: auto;
+    position: relative;
+    margin: 30px auto;
+    padding: 20px 20px 20px;
+    margin-top: 200px;
+    width: 310px;
+    text-align: center;
+    max-width: 400px;
+    background: white;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+    border: 0;
+    box-shadow: 0 0 15px 3px black;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+
+.form-group.c1, .form-group.c2 {
+    display: inline-block;
+    width: 49.5%;
+    vertical-align: top;
+}
+
+.form-patient {
+    position: relative;
+    margin: 100px auto;
+    padding: 20px 20px 20px;
+    width: 700px;
+    text-align: center;
+    background: white;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+    border: 0;
+    box-shadow: 0 0 15px 3px black;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.form-doctor {
+    position: relative;
+    margin: 150px auto;
+    padding: 20px 20px 20px;
+    width: 500px;
+    text-align: center;
+    background: white;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+    border: 0;
+    box-shadow: 0 0 15px 3px black;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.form-booking {
+    position: relative;
+    margin: 150px auto;
+    padding: 20px 20px 20px;
+    width: 400px;
+    text-align: center;
+    background: white;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+    border: 0;
+    box-shadow: 0 0 15px 3px black;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.search {
+    position: relative;
+    margin: 10px;
+    width: 100%;
+    text-align: center;
+    background: white;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+    border: 0;
+    box-shadow: 0 0 15px 3px black;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+
+    .search button {
+        background-color: #0074D9;
+        color: #f2f2f2;
+        float: right;
+        padding: 5px 10px;
+        margin-right: 16px;
+        font-size: 12px;
+        border: none;
+        cursor: pointer;
+    }

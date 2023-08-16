@@ -21,39 +21,70 @@ namespace Patient_Tracker.Pages.Doctors
         [BindProperty]
         public Doctor Doctor { get; set; } = new Doctor();
 
+        [BindProperty]
+        public string Building { get; set; }
+
+        [BindProperty]
+        public string Street { get; set; }
+
+        [BindProperty]
+        public string Town { get; set; }
+
+        [BindProperty]
+        public string City { get; set; }
+
         public async Task<IActionResult> OnPostAsync()
         {
-            var AddVal = await GetEircodeAsync(Doctor.Address);
-
-            Doctor.Address = AddVal;
-
-            if (!ModelState.IsValid || _context.Doctors == null || Doctor == null)
+            if (!string.IsNullOrEmpty(Building) && !string.IsNullOrEmpty(Street) && !string.IsNullOrEmpty(Town) && !string.IsNullOrEmpty(City))
             {
+                Doctor.Address = Building + "," + Street + "," + Town + "," + City;
+            }
+            else
+            {
+                var AddAddress = await GetEircodeAsync(Doctor.Address);
+                Doctor.Address = AddAddress;
+            }
+
+            var check1 = CheckLicence();
+            if (check1.Contains(Doctor.LicenceNumber))
+            {
+                ModelState.AddModelError(string.Empty, "This Licence Number is already registered");
                 return Page();
             }
 
-            var test = await Convert(Doctor);
-
-            // Check if a doctor with the same email already exists
-            bool doctorExists = await _context.Doctors.AnyAsync(d => d.Email == test.Email);
-            if (doctorExists)
+            var check2 = CheckEmail();
+            if (check2.Contains(Doctor.Email))
             {
-                ModelState.AddModelError("Doctor.Email", "A doctor with the same email already exists.");
+                ModelState.AddModelError(string.Empty, "This Email is already registered");
                 return Page();
             }
 
-            // Check if a doctor with the same madical licence number already exists
-            bool licenceExists = await _context.Doctors.AnyAsync(d => d.LicenceNumber == test.LicenceNumber);
-            if (doctorExists)
-            {
-                ModelState.AddModelError("Doctor.Licence", "A doctor with the same licence number already exists.");
-                return Page();
-            }
+            var convert = await Convert(Doctor);          
 
-            _context.Doctors.Add(test);
+            _context.Doctors.Add(Doctor);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
+        }
+
+        private List<string> CheckLicence()
+        {
+            List<string> licenceList = new();
+            foreach (var item in _context.Doctors)
+            {
+                licenceList.Add(item.LicenceNumber);
+            }
+            return licenceList;
+        }
+
+        private List<string> CheckEmail()
+        {
+            List<string> emailList = new();
+            foreach (var item in _context.Doctors)
+            {
+                emailList.Add(item.LicenceNumber);
+            }
+            return emailList;
         }
 
         private async Task<string> GetEircodeAsync(string eir)

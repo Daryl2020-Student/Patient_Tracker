@@ -6,54 +6,59 @@
 }
 
 <body>
-    <div class="text-center" style="padding-block: 20px;">
-        <div class="align-content-center text-black">
-            <h1>Create Doctor Profile</h1>
-        </div>
-    </div>
-    <hr />
-    <hr />
-
     <form method="post">
-        <div class="form-group mt-lg-4 mx-auto col-4">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-doctor">
+            <h3>Create Doctor Profile</h3>
             <input type="hidden" asp-for="Doctor.Id" />
 
-
-            <div class="form-group text-center">
-                <label asp-for="Doctor.LicenceNumber" class="control-label"><b>Licence Number</b></label>
-                <input asp-for="Doctor.LicenceNumber" type="text" class="form-control text-center" />
-                <span asp-validation-for="Doctor.LicenceNumber" class="text-danger"></span>
+            <div class="form-floating mb-3 content-center">
+                <input asp-for=Doctor.LicenceNumber class="form-control" id="floatingInput" placeholder="Enter Licence Number" required style="height:50px" maxlength="8">
+                <label for="floatingInput">Licence Number</label>
             </div>
 
-            <div class="form-group text-center">
-                <label asp-for="Doctor.DFirstName" class="control-label"><b>First Name</b></label>
-                <input asp-for="Doctor.DFirstName" type="text" class="form-control text-center" />
-                <span asp-validation-for="Doctor.DFirstName" class="text-danger"></span>
+            <div class="form-floating c1 mb-3 content-center">
+                <input asp-for=Doctor.DFirstName class="form-control" id="floatingInput" placeholder="Enter First Name" required style="height:50px">
+                <label for="floatingInput">First Name</label>
             </div>
 
-            <div class="form-group text-center">
-                <label asp-for="Doctor.DLastName" class="control-label"><b>Last Name</b></label>
-                <input asp-for="Doctor.DLastName" type="text" class="form-control text-center" />
-                <span asp-validation-for="Doctor.DLastName" class="text-danger"></span>
+            <div class="form-floating c2 mb-3 content-center">
+                <input asp-for=Doctor.DLastName class="form-control" id="floatingInput" placeholder="Enter Last Name" required style="height:50px">
+                <label for="floatingInput">Last name</label>
             </div>
 
-            <div class="form-group text-center">
-                <label asp-for="Doctor.Address" class="control-label"><b>Address</b></label>
-                <input asp-for="Doctor.Address" type="text" class="form-control text-center" />
-                <span asp-validation-for="Doctor.Address" class="text-danger"></span>
+            <div class="form-floating form-group c1 mb-3 content-center">
+                <input asp-for=Building class="form-control" id="Building" placeholder="Building" style="height:50px">
+                <label>Building Number</label>
             </div>
 
-            <div class="form-group text-center">
-                <label asp-for="Doctor.Email" class="control-label"><b>Email</b></label>
-                <input asp-for="Doctor.Email" type="text" class="form-control text-center" />
-                <span asp-validation-for="Doctor.Email" class="text-danger"></span>
+            <div class="form-floating form-group c2 mb-3 content-center">
+                <input asp-for=Street class="form-control" id="Street" placeholder="Street" style="height:50px">
+                <label>Street</label>
             </div>
 
-            <div class="form-group text-center">
-                <label asp-for="Doctor.Password" class="control-label"><b>Password</b></label>
-                <input asp-for="Doctor.Password" class="form-control text-center" type="password" />
-                <span asp-validation-for="Doctor.Password" class="text-danger"></span>
+            <div class="form-floating form-group c1 mb-3 content-center">
+                <input asp-for=Town class="form-control" id="Town" placeholder="Town" style="height:50px">
+                <label>Town</label>
+            </div>
+
+            <div class="form-floating form-group c2 mb-3 content-center">
+                <input asp-for=City class="form-control" id="City" placeholder="City" style="height:50px">
+                <label>City</label>
+            </div>
+
+            <div class="form-floating form-group mb-3 content-center">
+                <input asp-for="Doctor.Address" class="form-control" id="Eir" placeholder="Eircode" style="height:50px" maxlength="7">
+                <label>Eircode</label>
+            </div>
+
+            <div class="form-floating form-group mb-3 content-center">
+                <input asp-for=Doctor.Email class="form-control" id="floatingInput" placeholder="Email" required style="height:50px" type="email">
+                <label for="floatingInput">Email</label>
+            </div>
+
+            <div class="form-floating form-group mb-3 content-center">
+                <input asp-for=Doctor.Password class="form-control" id="floatingInput" placeholder="Address 5" required style="height:50px" type="password">
+                <label for="floatingInput">Password</label>
             </div>
 
             <div class="form-group text-center">
@@ -73,4 +78,53 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
-    }
+
+    <script>
+        // Get references to the address component inputs and the Eircode input
+        var houseInput = document.getElementById("Building");
+        var streetInput = document.getElementById("Street");
+        var townInput = document.getElementById("Town");
+        var cityInput = document.getElementById("City");
+        var eircodeInput = document.getElementById("Eir");
+
+        // Function to check if any of the address components have a value
+        function anyAddressComponentHasValue() {
+            return houseInput.value.trim() !== "" ||
+                streetInput.value.trim() !== "" ||
+                townInput.value.trim() !== "" ||
+                cityInput.value.trim() !== "";
+        }
+
+        // Add event listeners to all address component inputs
+        houseInput.addEventListener("input", updateEircodeInputState);
+        streetInput.addEventListener("input", updateEircodeInputState);
+        townInput.addEventListener("input", updateEircodeInputState);
+        cityInput.addEventListener("input", updateEircodeInputState);
+
+        // Update the state of the Eircode input based on address component values
+        function updateEircodeInputState() {
+            if (anyAddressComponentHasValue()) {
+                eircodeInput.disabled = true; // Disable the Eircode input
+            } else {
+                eircodeInput.disabled = false; // Enable the Eircode input
+            }
+        }
+        // Call the updateEircodeInputState initially to set the initial state
+        updateEircodeInputState();
+
+        // Add an event listener to the Eircode input
+        eircodeInput.addEventListener("input", function () {
+            if (eircodeInput.value.trim() !== "") {
+                houseInput.disabled = true; // Disable the Eircode input
+                townInput.disabled = true; // Disable the Eircode input
+                cityInput.disabled = true; // Disable the Eircode input
+                streetInput.disabled = true; // Disable the Eircode input
+            } else {
+                streetInput.disabled = false; // Enable the Eircode input
+                houseInput.disabled = false; // Disable the Eircode input
+                townInput.disabled = false; // Disable the Eircode input
+                cityInput.disabled = false; // Disable the Eircode input
+            }
+        });
+    </script>
+}

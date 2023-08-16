@@ -6,49 +6,38 @@
 }
 
 <body>
-    <div class="container">
-        <h1 class="mt-4">Appointments</h1>
+    <form asp-page="./Index" method="get">
+        <input placeholder="Find Booking by Name or PPS Number" name="SearchString" value="@Model.FindFilter" class="search" />
+        <button type="submit" class="btn"> Search</button>
+        <a asp-page="./Index" class="btn" style="background-color:blue">Back to Doctor List</a>
+    </form>
 
-        <form asp-page="./Index" method="get">
-            <div class="no-color mt-lg-3 text-center">
-                <p>
-                    <input placeholder="Find Booking by PPS or Name" type="text" name="SearchString" value="@Model.FindFilter" class="form-control text-center" />
-                    <button type="submit" class="btn"> Search</button>
-                    <a asp-page="./Index" class="btn" style="background-color:blue">Back to Patient List</a>
-                </p>
-            </div>
-        </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>PPS Number</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Booking)
+            {
+                <tr onclick="window.location.href = '@Url.Page("./Details", new { id = item.BookingID })';" style="cursor: pointer;">
+                    <td>@Html.DisplayFor(modelItem => item.BookingPPS)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BookingName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BookingDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.BookingTime)</td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.BookingID" class="btn" style="background-color: blue">Edit</a>
+                        <a asp-page="./Delete" asp-route-id="@item.BookingID" class="btn" style="background-color: red">Delete</a>
 
-        <p>
-            <a asp-page="Create" class="btn">Create New</a>
-        </p>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>PPS Number</th>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th></th>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Booking)
-                {
-                    <tr onclick="window.location.href = '@Url.Page("./Details", new { id = item.BookingID })';" style="cursor: pointer;">
-                        <td>@Html.DisplayFor(modelItem => item.BookingPPS)</td>
-                        <td>@Html.DisplayFor(modelItem => item.BookingName)</td>
-                        <td>@Html.DisplayFor(modelItem => item.BookingDate)</td>
-                        <td>@Html.DisplayFor(modelItem => item.BookingTime)</td>
-                        <td>
-                            <a asp-page="./Edit" asp-route-id="@item.BookingID" class="btn" style="background-color: blue">Edit</a>
-                            <a asp-page="./Delete" asp-route-id="@item.BookingID" class="btn" style="background-color: red">Delete</a>
-
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+            }
+        </tbody>
+    </table>
+    <a asp-page="Create" class="btn">Create New</a>
 </body>

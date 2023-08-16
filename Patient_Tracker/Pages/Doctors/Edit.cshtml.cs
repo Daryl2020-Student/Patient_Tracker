@@ -16,12 +16,11 @@ namespace Patient_Tracker.Pages.Doctors
         [BindProperty]
         public Doctor Doctor { get; set; } = default!;
 
-        // GET handler for the edit page
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null || _context.Doctors == null)
             {
-                return NotFound(); // If the id or context is null, return a not found page
+                return NotFound();
             }
 
             var doctor = await _context.Doctors.FirstOrDefaultAsync(m => m.Id == id);
@@ -32,9 +31,6 @@ namespace Patient_Tracker.Pages.Doctors
             Doctor = doctor; // Set the Doctor property to the found doctor
             return Page();
         }
-
-        // POST handler for the edit page
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
         public async Task<IActionResult> OnPostAsync()
         {
 
