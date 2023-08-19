@@ -1,28 +1,38 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: .NET
+name: Patient.Tracker_WF #Name of the workflow 
 
 on:
+#Only trigger work flow on push || pull to master branch
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
+#All jobs that can run parallel or sequentially
 jobs:
   build:
-
-    runs-on: windows-latest
+    runs-on: windows-latest #Type of runner that the jobs will run on.
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v3 #Using a GitHub Action called Checkout
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
-    - name: Restore dependencies
+        dotnet-version: 7.0.x
+       
+    - name: Restore_Dependencies #Restoring .net dependancies
       run: dotnet restore
-    - name: Build
+      
+    - name: Build #Build application on .net 
       run: dotnet build --no-restore
+      
     - name: Test
       run: dotnet test --no-build --verbosity normal
+
+    - name: Setup NuGet #Setting up NuGet to run in the workflow
+      uses: NuGet/setup-nuget@v1.2.0
+
+    - name: Restore_NuGet_Packages #Restoring NuGet packages in solution
+      run: nuget restore Patient_Tracker.sln
+
+    - name: Build_The_Solution
+      run: msbuild Patient_Tracker.sln
