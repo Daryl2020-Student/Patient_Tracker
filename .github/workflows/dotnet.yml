@@ -46,7 +46,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
 
     - name: Publish
-      run: dotnet publish C:\Users\daryl\source\Repos\Patient_Tracker\Patient_Tracker.csproj -c Release -o website
+      run: dotnet publish Patient_Tracker\Patient_Tracker.csproj -c Release -o website
 
     - name: Restore_NuGet_Packages #Restoring NuGet packages in solution
       run: nuget restore Patient_Tracker.sln
