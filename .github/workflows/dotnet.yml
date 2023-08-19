@@ -50,10 +50,4 @@ jobs:
 
     - name: Build_The_Solution
       run: msbuild Patient_Tracker.sln
-        
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: DotNet Artifact
-        path: C:\Users\daryl\source\Repos\Patient_Tracker\Patient_Tracker\bin\Release\net7.0
-        if-no-files-found: error
+
