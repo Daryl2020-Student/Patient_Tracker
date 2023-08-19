@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Patient_Tracker", "Patient_Tracker\Patient_Tracker.csproj", "{28CA402C-F475-42C1-A571-4419F75AF587}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patient_Tracker.Tests", "Patient_Tracker.Tests\Patient_Tracker.Tests.csproj", "{9487920C-AEE5-4A25-BA45-3177F76DC195}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patient_Tracker_Test", "Patient_Tracker_Test\Patient_Tracker_Test.csproj", "{0359D88C-42E5-4917-921A-EB985889294D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{28CA402C-F475-42C1-A571-4419F75AF587}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28CA402C-F475-42C1-A571-4419F75AF587}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28CA402C-F475-42C1-A571-4419F75AF587}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9487920C-AEE5-4A25-BA45-3177F76DC195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9487920C-AEE5-4A25-BA45-3177F76DC195}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9487920C-AEE5-4A25-BA45-3177F76DC195}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9487920C-AEE5-4A25-BA45-3177F76DC195}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0359D88C-42E5-4917-921A-EB985889294D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0359D88C-42E5-4917-921A-EB985889294D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0359D88C-42E5-4917-921A-EB985889294D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0359D88C-42E5-4917-921A-EB985889294D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

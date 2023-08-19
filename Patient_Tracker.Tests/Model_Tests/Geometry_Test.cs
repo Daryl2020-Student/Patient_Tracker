@@ -1,26 +1,44 @@
 ﻿using NUnit.Framework;
+using Moq;
+using Microsoft.AspNetCore.Mvc;
+using Patient_Tracker.Pages.Bookings;
+
+using Patient_Tracker.Data;
 using Patient_Tracker.Model;
 
-namespace Patient_Tracker.Tests.Model_Tests
+namespace Patient_Tracker.Tests.Pages.Bookings
 {
-    public class GeometryTests
+    [TestFixture]
+    public class Geomtry_Tests
+
     {
-        public void Geometry_PropertiesInitialized_Successfully()
+        private Mock<Patient_Tracker_Context> _contextMock;
+
+        [SetUp]
+        public void Setup()
+        {
+            _contextMock = new Mock<Patient_Tracker_Context>();
+        }
+
+        [Test]
+        public async Task OnPostAsync_ValidModel_Success()
         {
             // Arrange
-            var location = new Location { lat = 50.00, lng = -50.00 };
-            var geometry = new Geometry
+            var model = new CreateModel(_contextMock.Object)
             {
-                location = location,
-                location_type = "Point"
+                Booking = new Booking
+                {
+                    // Initialize Booking properties
+                }
             };
 
-            // Act - No specific action required as we're testing property initialization
+            // Act
+            var result = await model.OnPostAsync();
 
             // Assert
-            Assert.IsNotNull(geometry);
-            Assert.AreSame(location, geometry.location);
-            Assert.AreEqual("Point", geometry.location_type);
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
+         
         }
+
     }
 }
