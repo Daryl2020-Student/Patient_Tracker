@@ -19,10 +19,10 @@ jobs:
       with:
         dotnet-version: 7.0.x
         
-    - name: Caching #Caching NuGet packages so the build is faster
+    - name: Cache NuGet packages #Caching NuGet packages so the build is faster
     - uses: actions/cache@v3.2.6
       with:
-        path: ~/.nuget/packages
+        path: '~/.nuget/packages'
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
