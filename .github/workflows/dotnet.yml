@@ -24,10 +24,8 @@ jobs:
       uses: actions/cache@v3.2.6
       with:
         path: '~/.nuget/packages'
-        key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }}
+        key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}
         restore-keys: |
-          ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-
-          ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-
           ${{ runner.os }}-dotnet-
 
     - name: Setup MSBuild #Setting up MSBuild to run in the workflow
@@ -55,7 +53,7 @@ jobs:
       run: msbuild Patient_Tracker.sln
 
     - name: Uploading a build artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v3.2.6 # Updated to v2
       with:
         name: DotNet Artifacts
         path: C:\Users\daryl\source\Repos\Patient_Tracker\Patient_Tracker\bin\Release\net7.0
