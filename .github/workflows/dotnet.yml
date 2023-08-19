@@ -18,9 +18,8 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
-
-           # Cache NuGet packages and the .NET SDK for faster builds
-    - name: Cache .NET packages
+          
+    - name: Cache
       uses: actions/cache@v3.2.6
       with:
         path: '~/.nuget/packages'
@@ -56,5 +55,12 @@ jobs:
       uses: actions/upload-artifact@v3.2.6 # Updated to v2
       with:
         name: DotNet Artifacts
+        path: C:\Users\daryl\source\Repos\Patient_Tracker\Patient_Tracker\bin\Release\net7.0
+        if-no-files-found: error
+        
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: DotNet Artifact
         path: C:\Users\daryl\source\Repos\Patient_Tracker\Patient_Tracker\bin\Release\net7.0
         if-no-files-found: error
