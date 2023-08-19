@@ -2,6 +2,7 @@
 #nullable disable
 namespace Patient_Tracker.Model
 {
+#nullable disable
     public class Doctor
     {
         // Primary key

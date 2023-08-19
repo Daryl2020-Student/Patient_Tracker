@@ -1,5 +1,6 @@
 ﻿namespace Patient_Tracker.Model
 {
+#nullable disable
     // Patient class represents a patient entity.
     public class Patient
     {

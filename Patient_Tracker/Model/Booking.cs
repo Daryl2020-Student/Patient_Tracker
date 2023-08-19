@@ -1,5 +1,6 @@
 ﻿namespace Patient_Tracker.Model
 {
+#nullable disable
     public class Booking
     {
         [Key]
