@@ -34,8 +34,18 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
 
+    - name: Publish
+      run: dotnet publish C:\Users\daryl\source\Repos\Patient_Tracker\Patient_Tracker.csproj -c Release -o website
+
     - name: Restore_NuGet_Packages #Restoring NuGet packages in solution
       run: nuget restore Patient_Tracker.sln
 
     - name: Build_The_Solution
       run: msbuild Patient_Tracker.sln
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: website
+        path: SimpleFeedReader/website/**
+        if-no-files-found: error
