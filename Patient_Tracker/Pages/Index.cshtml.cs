@@ -23,40 +23,43 @@
 
         public IActionResult OnPost()
         {
-
             if (Doctor.Email == string.Empty || Doctor.Password == string.Empty )
             {
                 return Page();
             }
 
-            // Find the doctor with the given email
-   
-            var doctorEmail = _context.Doctors.FirstOrDefault(d => d.Email == Doctor.Email);
+        
+          
 
-            var doctorPassword = _context.Doctors.FirstOrDefault(d => d.Password == Doctor.Password);
+                var doctor= _context.Doctors.FirstOrDefault(d => d.Password == Doctor.Password);
 
-            if (doctorEmail != null && doctorPassword!=null)
-            {
-                if (doctorEmail.Email != Doctor.Email)
+                var checkBeans = Beans(Doctor.Email);
+
+                if (checkBeans != doctor.Email && checkBeans == null)
                 {
                     // Doctor not found
                     ModelState.AddModelError(string.Empty, "Invalid email or password.");
                     return Page();
                 }
 
-                if (doctorPassword.Password != Doctor.Password)
+                if (doctor.Password != Doctor.Password && Doctor.Password == null)
                 {
                     // Invalid password
                     ModelState.AddModelError(string.Empty, "Invalid email or password.");
                     return Page();
                 }
-            }
+            
 
             // Successful login
             ShowNavbar = true; // Show the navbar
 
             // Redirect to another page
             return RedirectToPage("/Patients/Index");
+        }
+
+        private string Beans(string beans)
+        {
+            return beans.ToUpper();
         }
     }
 }
