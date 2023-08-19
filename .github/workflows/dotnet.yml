@@ -18,15 +18,15 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
-          
-    - name: Cache
-      uses: actions/cache@v3.2.6
+        
+    - name: Caching #Caching NuGet packages so the build is faster
+    - uses: actions/cache@v3.2.6
       with:
-        path: '~/.nuget/packages'
-        key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
         restore-keys: |
-          ${{ runner.os }}-dotnet-
-
+          ${{ runner.os }}-nuget-
+        
     - name: Setup MSBuild #Setting up MSBuild to run in the workflow
       uses: microsoft/setup-msbuild@v1
 
@@ -50,13 +50,6 @@ jobs:
 
     - name: Build_The_Solution
       run: msbuild Patient_Tracker.sln
-
-    - name: Uploading a build artifact
-      uses: actions/upload-artifact@v3.2.6 # Updated to v2
-      with:
-        name: DotNet Artifacts
-        path: C:\Users\daryl\source\Repos\Patient_Tracker\Patient_Tracker\bin\Release\net7.0
-        if-no-files-found: error
         
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.2
