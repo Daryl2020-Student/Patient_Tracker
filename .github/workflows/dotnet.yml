@@ -18,7 +18,7 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
-       
+      
     - name: Restore_Dependencies #Restoring .net dependancies
       run: dotnet restore
       
@@ -27,6 +27,9 @@ jobs:
       
     - name: Test
       run: dotnet test --no-build --verbosity normal
+
+    - name: Setup MSBuild #Setting up MSBuild to run in the workflow
+      uses: microsoft/setup-msbuild@v1
 
     - name: Setup NuGet #Setting up NuGet to run in the workflow
       uses: NuGet/setup-nuget@v1.2.0
