@@ -57,7 +57,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3 #Using "Checkout version 3"
-
       - name: Cache .NET packages
         uses: actions/cache@v2 #Using the GitHub action Cache version 2
         with:
@@ -80,7 +79,7 @@ jobs:
   #Testing the SQLite DB
   test:
     needs: build-web-app #Needs this to run
-    name: Test SQLite Database and Code #Name of job
+    name: TestDB #Name of job
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -106,9 +105,37 @@ jobs:
         run: dotnet restore
       - name: Test
         run: dotnet test
+
+ #Analysing the code
+  analyze: 
+    needs: setup
+    name: analyze
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Cache .NET packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-
+          ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-
+          ${{ runner.os }}-dotnet-
+  
+    - name: analyze
+    - uses: github/codeql-action/init@v2
+      with:
+        languages: csharp, javascript, css, html 
+   
+        
   #Deloying the Web-App using Windows lastest release
   deploy:
-    needs: [build-web-app, test]
+    needs: [analyze, build-web-app, test]
     if: ${{ needs.test.result == 'success' }}
     name: Deploy App
     runs-on: windows-latest
@@ -116,3 +143,5 @@ jobs:
     steps:
       - name: Deploy Web App
         run: echo "Deploy in progress" #Message to screen
+
+  
