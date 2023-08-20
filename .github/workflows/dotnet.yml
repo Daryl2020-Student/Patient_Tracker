@@ -129,7 +129,8 @@ jobs: #Defining the jobs
       uses: github/codeql-action/init@v2 #Using the GitHub action "CodeQL version 2"
       with:
         languages: ${{ matrix.language }} #Defining the languages to analyze
-        config-file: ./.github/workflows/analyze/codeql-config.yml #Defining the config file
+       
+        config-file: ./.github/workflows/analyze/codeql-config.yml
     - name: Build project 
       run: dotnet build 
     - name: Perform CodeQL Analysis 
