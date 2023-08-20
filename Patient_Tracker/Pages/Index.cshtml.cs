@@ -23,32 +23,28 @@
 
         public IActionResult OnPost()
         {
-            if (Doctor.Email == string.Empty || Doctor.Password == string.Empty )
+            if (Doctor.Email == string.Empty || Doctor.Password == string.Empty)
             {
                 return Page();
             }
 
-        
-          
+            var doctor = _context.Doctors.FirstOrDefault(d => d.Password == Doctor.Password);
 
-                var doctor= _context.Doctors.FirstOrDefault(d => d.Password == Doctor.Password);
+            var checkBeans = Beans(Doctor.Email);
 
-                var checkBeans = Beans(Doctor.Email);
+            if (checkBeans != doctor.Email && checkBeans == null)
+            {
+                // Doctor not found
+                ModelState.AddModelError(string.Empty, "Invalid email or password.");
+                return Page();
+            }
 
-                if (checkBeans != doctor.Email && checkBeans == null)
-                {
-                    // Doctor not found
-                    ModelState.AddModelError(string.Empty, "Invalid email or password.");
-                    return Page();
-                }
-
-                if (doctor.Password != Doctor.Password && Doctor.Password == null)
-                {
-                    // Invalid password
-                    ModelState.AddModelError(string.Empty, "Invalid email or password.");
-                    return Page();
-                }
-            
+            if (doctor.Password != Doctor.Password && Doctor.Password == null)
+            {
+                // Invalid password
+                ModelState.AddModelError(string.Empty, "Invalid email or password.");
+                return Page();
+            }
 
             // Successful login
             ShowNavbar = true; // Show the navbar
