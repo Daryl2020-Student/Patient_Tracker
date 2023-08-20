@@ -103,33 +103,36 @@ jobs: #Defining the jobs
         run: dotnet restore #Restore the .Net packages
       - name: Test #Test the .Net packages
         run: dotnet test 
-
- #Analysing the code
-  analyze:  
-    needs: test #Needs this to run
-    name: AnalyzeDB #Name of job
-    runs-on: ${{ matrix.os }} #Runs on the latest Windows
-    strategy: #Defining the strategy
-      matrix: #Defining the matrix
-        os: [windows-latest] #Defining the OS
-
-    steps: #Defining the steps
+        
+  analyze:
+    needs: [build-web-app] #Needs this to run
+    name: analyze #Name of job
+    runs-on: windows-latest #Runs on the latest Windows
+    strategy:
+      fail-fast: false #If one of the jobs fails, the other jobs will still run
+      matrix:
+        language: ['csharp, javascript'] #Defining the languages to analyze
+    steps:
     - uses: actions/checkout@v3 #Using the GitHub action "Checkout version 3"
-    - name: Cache .NET packages #Caching the .Net NuGet packages
-      uses: actions/cache@v2 #Using the GitHub action "Cache version 2"
+    - uses: actions/cache@v3.2.6 #Using the GitHub action "Cache version 3.2.6"
       with:
-        path: ~/.nuget/packages #Path to the .Net NuGet packages
-        key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }} #Defining a key for caching
-        restore-keys: |
-          ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-
-          ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-
-          ${{ runner.os }}-dotnet-
-  
-    - name: analyze #Analyze the code
+        path: |
+          ~/.nuget/packages #Path to the .Net NuGet packages
+          ./bin
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/project.assets.json') }}-${{ matrix.language }} #Defining a key for caching
+    - uses: actions/setup-dotnet@v3 #Using the GitHub action "Setup .Net version 3"
+      with:
+        dotnet-version: 7.0.x #Defining the .Net version
+    - name: Restore NuGet packages #Restore the .Net packages
+      run: dotnet restore #Restore the .Net packages
+    - name: Initialize CodeQL #Initialize CodeQL
       uses: github/codeql-action/init@v2 #Using the GitHub action "CodeQL version 2"
       with:
-        languages: csharp, javascript, css, html #Defining the languages to be analyzed
-   
+        languages: ${{ matrix.language }} #Defining the languages to analyze
+    - name: Build project 
+      run: dotnet build 
+    - name: Perform CodeQL Analysis 
+      uses: github/codeql-action/analyze@v2 #Using the GitHub action "CodeQL version 2"
         
   #Deloying the Web-App using Windows lastest release
   deploy:
