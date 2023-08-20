@@ -104,38 +104,33 @@ jobs: #Defining the jobs
       - name: Test #Test the .Net packages
         run: dotnet test 
         
-  analyze:
-    name: Analyze
-    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
-    timeout-minutes: ${{ (matrix.language == 'swift' && 120) || 360 }}
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-
+  codeql-analysis:
+    runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
       matrix:
-        language: [ 'csharp' ]
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+        os: [windows-latest]
+        language: [csharp]
 
-    # Initializes the CodeQL tools for scanning.
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: ${{ matrix.language }}
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-      with:
-        category: "/language:${{matrix.language}}"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "Language"
         
   #Deloying the Web-App using Windows lastest release
   deploy:
-    needs: [analyze, build-web-app, test] #Needs these to run
+    needs: [codeql-analysis, build-web-app, test] #Needs these to run
     if: ${{ needs.test.result == 'success' }} #If the test is successful
     name: Deploy App #Name of job
     runs-on: windows-latest #Runs on the latest Windows
