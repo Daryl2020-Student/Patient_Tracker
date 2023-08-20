@@ -111,7 +111,7 @@ jobs: #Defining the jobs
     strategy:
       fail-fast: false #If one of the jobs fails, the other jobs will still run
       matrix:
-        language: ['csharp', 'javascript'] #Defining the languages to analyze
+        language: ['csharp'] #Defining the languages to analyze
     steps:
     - uses: actions/checkout@v3 #Using the GitHub action "Checkout version 3"
     - uses: actions/cache@v3.2.6 #Using the GitHub action "Cache version 3.2.6"
