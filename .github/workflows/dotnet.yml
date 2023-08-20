@@ -105,12 +105,12 @@ jobs: #Defining the jobs
         run: dotnet test 
         
   codeql-analysis:
-    runs-on: ${{ matrix.os }}
+    name: analyze
+    runs-on: windows-latest
     strategy:
+      fail-fast: false
       matrix:
-        os: [windows-latest]
-        language: [csharp]
-
+        language: ['csharp']
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
