@@ -1,78 +1,76 @@
 name: .NET
 
-#On a push || pull to the master branch, initiate this workflow
 on:
-  push:
-    branches:
-      - master
+  push: #On a push to the master branch, initiate this workflow
+    branches: 
+      - master 
     paths-ignore: #Ignore markdown files & git files
-      - '**/*.md'
+      - '**/*.md' 
       - '**/*.git*'
-  pull_request:
-    branches:
+  pull_request: #On a pull request to the master branch, initiate this workflow
+    branches: 
       - master
-  workflow_dispatch:
+  workflow_dispatch: #On a manual trigger, initiate this workflow
 
 #Defining the environment variables to be used in the workflow
 env:
-  DOTNET_NOLOGO: true
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_NOLOGO: true #Hides the .Net logo
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true #Skips the first time experience
+  DOTNET_CLI_TELEMETRY_OPTOUT: true #Opt out of telemetry
 
-jobs:
+jobs: #Defining the jobs
 
   setup: #Setup job to install .Net workload on the latest Windows
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }} #Runs on the latest Windows
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [windows-latest] #Defining the OS
         dotnet-version: [7.0.x] #The .Net version
 
     steps:
       - uses: actions/checkout@v3 #Checkout the repo using GitHub action checkout "Checkout version 3"
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+      - name: Setup .NET #Setup .Net
+        uses: actions/setup-dotnet@v3 #Using the GitHub action "Setup .Net version 3"
         with:
           dotnet-version: 7.0.x #The .Net version
 
       - name: Cache .NET packages #Caching the .Net NuGet packages
         uses: actions/cache@v2 #Using the GitHub action "Cache version 2"
         with:
-          path: ~/.nuget/packages
+          path: ~/.nuget/packages #Path to the .Net NuGet packages
           key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }} #Defining a key for caching
           #Restore-keys looks for variations of the key created so it doesn't have to be exact
           restore-keys: |
             ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages- 
             ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-
             ${{ runner.os }}-dotnet-
-
-  #Building the web app
-  build-web-app: 
-    needs: setup
-    name: Build Web App
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest]
+            
+  build-web-app: #Build job to build the web app
+    needs: setup #Needs this to run
+    name: Build Web App #Name of job
+    runs-on: ${{ matrix.os }} #Runs on the latest Windows
+    strategy: #Defining the strategy
+      matrix: #Defining the matrix
+        os: [windows-latest] #Defining the OS
 
     steps:
       - uses: actions/checkout@v3 #Using "Checkout version 3"
-      - name: Cache .NET packages
+      - name: Cache .NET packages #Caching the .Net NuGet packages
         uses: actions/cache@v2 #Using the GitHub action Cache version 2
         with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }}
+          path: ~/.nuget/packages #Path to the .Net NuGet packages
+          key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }} #Defining a key for caching 
           restore-keys: |
             ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-
             ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-
             ${{ runner.os }}-dotnet-
      
       - name: Setup .NET #Setup .Net
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v3 #Using the GitHub action "Setup .Net version 3"
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Restore #Restore the .Net packages
-        run: dotnet restore
+        run: dotnet restore 
       - name: Build #Build .Net
         run: dotnet build --no-restore
 
@@ -80,68 +78,68 @@ jobs:
   test:
     needs: build-web-app #Needs this to run
     name: TestDB #Name of job
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest]
+    runs-on: ${{ matrix.os }} #Runs on the latest Windows
+    strategy: #Defining the strategy
+      matrix: #Defining the matrix
+        os: [windows-latest] #Defining the OS
 
-    steps:
-      - uses: actions/checkout@v3
-      - name: Cache .NET packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }}
-          restore-keys: |
-            ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-
+    steps: #Defining the steps
+      - uses: actions/checkout@v3 #Using the GitHub action "Checkout version 3"
+      - name: Cache .NET packages #Caching the .Net NuGet packages
+        uses: actions/cache@v2 #Using the GitHub action "Cache version 2"
+        with: 
+          path: ~/.nuget/packages #Path to the .Net NuGet packages
+          key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }} #Defining a key for caching
+          restore-keys: | #Restore-keys looks for variations of the key created so it doesn't have to be exact
+            ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages- 
             ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-
             ${{ runner.os }}-dotnet-
             
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+      - name: Setup .NET #Setup .Net
+        uses: actions/setup-dotnet@v3 #Using the GitHub action "Setup .Net version 3"
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
-      - name: Restore
-        run: dotnet restore
-      - name: Test
-        run: dotnet test
+          dotnet-version: ${{ matrix.dotnet-version }} #Defining the .Net version
+      - name: Restore #Restore the .Net packages
+        run: dotnet restore #Restore the .Net packages
+      - name: Test #Test the .Net packages
+        run: dotnet test 
 
  #Analysing the code
-  analyze: 
-    needs: setup
-    name: analyze
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest]
+  analyze:  
+    needs: test #Needs this to run
+    name: AnalyzeDB #Name of job
+    runs-on: ${{ matrix.os }} #Runs on the latest Windows
+    strategy: #Defining the strategy
+      matrix: #Defining the matrix
+        os: [windows-latest] #Defining the OS
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Cache .NET packages
-      uses: actions/cache@v2
+    steps: #Defining the steps
+    - uses: actions/checkout@v3 #Using the GitHub action "Checkout version 3"
+    - name: Cache .NET packages #Caching the .Net NuGet packages
+      uses: actions/cache@v2 #Using the GitHub action "Cache version 2"
       with:
-        path: ~/.nuget/packages
-        key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }}
+        path: ~/.nuget/packages #Path to the .Net NuGet packages
+        key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }} #Defining a key for caching
         restore-keys: |
           ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-
           ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-
           ${{ runner.os }}-dotnet-
   
-    - name: analyze
-    - uses: github/codeql-action/init@v2
+    - name: analyze #Analyze the code
+      uses: github/codeql-action/init@v2 #Using the GitHub action "CodeQL version 2"
       with:
-        languages: csharp, javascript, css, html 
+        languages: csharp, javascript, css, html #Defining the languages to be analyzed
    
         
   #Deloying the Web-App using Windows lastest release
   deploy:
-    needs: [analyze, build-web-app, test]
-    if: ${{ needs.test.result == 'success' }}
-    name: Deploy App
-    runs-on: windows-latest
+    needs: [analyze, build-web-app, test] #Needs these to run
+    if: ${{ needs.test.result == 'success' }} #If the test is successful
+    name: Deploy App #Name of job
+    runs-on: windows-latest #Runs on the latest Windows
 
     steps:
-      - name: Deploy Web App
-        run: echo "Deploy in progress" #Message to screen
+      - name: Deploy Web App #Deploy the web app
+        run: echo "Deploy in progress" #Echo the message "Deploy in progress"
 
   
