@@ -19,7 +19,10 @@ env:
 
 jobs:
   setup:
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET
@@ -36,7 +39,10 @@ jobs:
             
   build-web-app:
     needs: setup
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
     steps:
       - uses: actions/checkout@v2
       - name: Cache .NET packages
@@ -57,7 +63,10 @@ jobs:
 
   test:
     needs: build-web-app
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
     steps:
       - uses: actions/checkout@v2
       - name: Cache .NET packages
@@ -78,7 +87,10 @@ jobs:
         
   codeql-analysis:
     needs: [build-web-app]
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -96,7 +108,10 @@ jobs:
   deploy:
     needs: [codeql-analysis, build-web-app, test]
     if: ${{ needs.test.result == 'success' }}
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
     steps:
       - name: Deploy Web App
         run: echo "Deployment in progress"
